@@ -1,55 +1,55 @@
-package br.com.gerenciaprotocolo.model;
+// package br.com.gerenciaprotocolo.model;
 
-import jakarta.persistence.*;
+// import jakarta.persistence.*;
 
-@Entity
-@Table(name = "telefone")
-public class Telefone {
+// @Entity
+// @Table(name = "telefone")
+// public class Telefone {
 
-    @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long telefoneId;
+//     @Id
+// @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long telefoneId;
 
-    @Column(name = "numero", nullable = false, length = 10)
-    private String numero;
+//     @Column(name = "numero", nullable = false, length = 10)
+//     private String numero;
 
-    @Column(name = "ddd", nullable = false, length = 2)
-    private String ddd;
+//     @Column(name = "ddd", nullable = false, length = 2)
+//     private String ddd;
 
-    @Column(name = "tipo_telefone", nullable = false, length = 50)
-    private String tipoTelefone;
+//     @Column(name = "tipo_telefone", nullable = false, length = 50)
+//     private String tipoTelefone;
 
 
-  public Long getTelefoneId() {
-    return this.telefoneId;
-  }
+//   public Long getTelefoneId() {
+//     return this.telefoneId;
+//   }
 
-  public void setTelefoneId(Long telefoneId) {
-    this.telefoneId = telefoneId;
-  }
+//   public void setTelefoneId(Long telefoneId) {
+//     this.telefoneId = telefoneId;
+//   }
 
-  public String getNumero() {
-    return this.numero;
-  }
+//   public String getNumero() {
+//     return this.numero;
+//   }
 
-  public void setNumero(String numero) {
-    this.numero = numero;
-  }
+//   public void setNumero(String numero) {
+//     this.numero = numero;
+//   }
 
-  public String getDdd() {
-    return this.ddd;
-  }
+//   public String getDdd() {
+//     return this.ddd;
+//   }
 
-  public void setDdd(String ddd) {
-    this.ddd = ddd;
-  }
+//   public void setDdd(String ddd) {
+//     this.ddd = ddd;
+//   }
 
-  public String getTipoTelefone() {
-    return this.tipoTelefone;
-  }
+//   public String getTipoTelefone() {
+//     return this.tipoTelefone;
+//   }
 
-  public void setTipoTelefone(String tipoTelefone) {
-    this.tipoTelefone = tipoTelefone;
-  }
+//   public void setTipoTelefone(String tipoTelefone) {
+//     this.tipoTelefone = tipoTelefone;
+//   }
     
-}
+// }

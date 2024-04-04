@@ -3,30 +3,36 @@ package br.com.gerenciaprotocolo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "departamento")
+@Table(name = "Departamento")
 public class Departamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long departamentoId;
+    private Long departamentoID;
 
     @Column(name = "nome", nullable = false, length = 50)
     private String nome;
 
-
-  public Long getDepartamentoId() {
-    return this.departamentoId;
+  public Departamento(long departamentoID, String nome) {
+    this.departamentoID = departamentoID;
+    this.nome = nome;
+  }
+  public Departamento(){
   }
 
-  public void setDepartamentoId(Long departamentoId) {
-    this.departamentoId = departamentoId;
+  public Long getdepartamentoId() {
+    return this.departamentoID;
   }
 
-  public String getNome() {
+  public void setdepartamentoId(Long departamentoId) {
+    this.departamentoID = departamentoId;
+  }
+
+  public String getnome() {
     return this.nome;
   }
 
-  public void setNome(String nome) {
+  public void setnome(String nome) {
     this.nome = nome;
   }
     
