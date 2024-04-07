@@ -6,12 +6,13 @@ import jakarta.persistence.*;
 @Table(name = "Departamento")
 public class Departamento {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long departamentoID;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "departamentoID")
+  private Long departamentoID;
 
-    @Column(name = "nome", nullable = false, length = 50)
-    private String nome;
+  @Column(name = "nome", nullable = false, length = 50)
+  private String nome;
 
   public Departamento(long departamentoID, String nome) {
     this.departamentoID = departamentoID;

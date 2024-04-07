@@ -1,84 +1,72 @@
-// package br.com.gerenciaprotocolo.model;
-// import jakarta.persistence.*;
+package br.com.gerenciaprotocolo.model;
 
+import jakarta.persistence.*;
 
-// @Entity
-// public class Funcionario {
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-//     private String nome;
-//     private String departamentoResponsavel;
-//     private boolean propensaoBacen;
-//     private boolean agilizar;
-//     private String devido;
-//     private String procedente;
-
-
-//     public Long getId() {
-//         return this.id;
-//     }
-
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
-
-//     public String getNome() {
-//         return this.nome;
-//     }
-
-//     public void setNome(String nome) {
-//         this.nome = nome;
-//     }
-
-//     public String getDepartamentoResponsavel() {
-//         return this.departamentoResponsavel;
-//     }
-
-//     public void setDepartamentoResponsavel(String departamentoResponsavel) {
-//         this.departamentoResponsavel = departamentoResponsavel;
-//     }
-
-//     public boolean isPropensaoBacen() {
-//         return this.propensaoBacen;
-//     }
-
-//     public boolean getPropensaoBacen() {
-//         return this.propensaoBacen;
-//     }
-
-//     public void setPropensaoBacen(boolean propensaoBacen) {
-//         this.propensaoBacen = propensaoBacen;
-//     }
-
-//     public boolean isAgilizar() {
-//         return this.agilizar;
-//     }
-
-//     public boolean getAgilizar() {
-//         return this.agilizar;
-//     }
-
-//     public void setAgilizar(boolean agilizar) {
-//         this.agilizar = agilizar;
-//     }
-
-//     public String getDevido() {
-//         return this.devido;
-//     }
-
-//     public void setDevido(String devido) {
-//         this.devido = devido;
-//     }
-
-//     public String getProcedente() {
-//         return this.procedente;
-//     }
-
-//     public void setProcedente(String procedente) {
-//         this.procedente = procedente;
-//     }
+@Entity
+@Table(name = "Funcionario")
+public class Funcionario {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codigoFuncionarioID")
+    private Long codigoFuncionarioID;
 
+    @Column(name = "nome", nullable = false, length = 100)
+    private String nome;
 
-// }
+    @Column(name = "email", nullable = false, length = 100)
+    private String email;
+
+    @Column(name = "departamentoID")
+    private Long departamentoID;
+
+    @Column(name = "cargosID")
+    private Long cargosID;
+
+    public Long getCodigoFuncionarioID() {
+        return codigoFuncionarioID;
+    }
+
+    public void setCodigoFuncionarioID(Long codigoFuncionarioID) {
+        this.codigoFuncionarioID = codigoFuncionarioID;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getDepartamentoID() {
+        return departamentoID;
+    }
+
+    public void setDepartamentoID(Long departamentoID) {
+        this.departamentoID = departamentoID;
+    }
+
+    public Long getCargosID() {
+        return cargosID;
+    }
+
+    public void setCargosID(Long cargosID) {
+        this.cargosID = cargosID;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario [codigoFuncionarioID=" + codigoFuncionarioID + ", nome=" + nome + ", email=" + email
+                + ", departamentoID=" + departamentoID + ", cargosID=" + cargosID + "]";
+    }
+
+}
