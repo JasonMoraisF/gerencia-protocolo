@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.gerenciaprotocolo.model.TipoCliente;
 
 @Repository
-public interface TipoClienteRepository extends JpaRepository<Long,TipoCliente>{
+public interface TipoClienteRepository extends JpaRepository<TipoCliente,Long>{
     
 }
