@@ -1,29 +1,37 @@
-// package br.com.gerenciaprotocolo.model;
+package br.com.gerenciaprotocolo.model;
 
-// import jakarta.persistence.*;
+import jakarta.persistence.*;
 
-// @Entity
+@Entity
+@Table(name = "Canal")
+public class Canal {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "canalID")
+    private Long canalID;
+  
+    @Column(name = "TipoCanal", nullable = false, length = 30)
+    private String TipoCanal;
 
-// public class Canal {
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-//     private String nome;
+    public Long getCanalID() {
+        return canalID;
+    }
 
-//     public Long getId() {
-//         return id;
-//     }
+    public void setCanalID(Long canalID) {
+        this.canalID = canalID;
+    }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    public String getTipoCanal() {
+        return TipoCanal;
+    }
 
-//     @Column(nullable = false, unique = true)
-//     public String getNome() {
-//         return nome;
-//     }
+    public void setTipoCanal(String tipoCanal) {
+        TipoCanal = tipoCanal;
+    }
 
-//     public void setNome(String nome) throws IllegalArgumentException{
-//         if (nome == null || nome.trim().isEmpty()) throw new IllegalArgumentException("O campo 'Nome' não pode ser null");
-        
-// }}
+    @Override
+    public String toString() {
+        return "Canal [canalID=" + canalID + ", TipoCanal=" + TipoCanal + "]";
+    }
+}
