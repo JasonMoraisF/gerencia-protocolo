@@ -8,64 +8,41 @@ public class Conta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contaID")
-    private Long contaID;
-    
-    @Column(name = "titularID")
-    private Long titularID;
+    @Column(name = "conta_id")
+    private Long contaId;
 
-    @Column(name = "agencia", nullable = false, length = 4)
+    @Column(name = "agencia", nullable = false)
     private String agencia;
 
-    @Column(name = "numeroConta", nullable = false, length = 10)
+    @Column(name = "numero_conta", nullable = false)
     private String numeroConta;
 
-    @Column(name = "tipoClienteID")
-    private Long tipoClienteID;
+    @Column(name = "status_conta", nullable = false)
+    private String statusConta;
 
-    public Long getContaID() {
-        return contaID;
-    }
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
-    public void setContaID(Long contaID) {
-        this.contaID = contaID;
-    }
+    @Column(name = "cpf", nullable = false)
+    private String cpf;
 
-    public Long getTitularID() {
-        return titularID;
-    }
+    @Column(name = "email", nullable = false)
+    private String email;
 
-    public void setTitularID(Long titularID) {
-        this.titularID = titularID;
-    }
+    @Column(name = "tipo_cliente", nullable = false)
+    private String tipoCliente;
 
-    public String getAgencia() {
-        return agencia;
-    }
+    @Column(name = "telefone", nullable = true)
+    private String telefone;
 
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
-    }
+    @Column(name = "ddd", nullable = true)
+    private String ddd;
 
-    public String getNumeroConta() {
-        return numeroConta;
-    }
+    @Column(name = "tipo_telefone", nullable = true)
+    private String tipoTelefone;
 
-    public void setNumeroConta(String numeroConta) {
-        this.numeroConta = numeroConta;
-    }
-
-    public Long getTipoClienteID() {
-        return tipoClienteID;
-    }
-
-    public void setTipoClienteID(Long tipoClienteID) {
-        this.tipoClienteID = tipoClienteID;
-    }
-
-    @Override
-    public String toString() {
-        return "Conta [contaID=" + contaID + ", titularID=" + titularID + ", agencia=" + agencia + ", numeroConta="
-                + numeroConta + ", tipoClienteID=" + tipoClienteID + "]";
-    }
+    @OneToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }
+

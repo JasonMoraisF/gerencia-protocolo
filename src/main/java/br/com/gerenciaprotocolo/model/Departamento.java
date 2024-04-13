@@ -1,5 +1,7 @@
 package br.com.gerenciaprotocolo.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,33 +10,13 @@ public class Departamento {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "departamentoID")
-  private Long departamentoID;
+  @Column(name = "departamento_id")
+  private Long departamentoId;
 
-  @Column(name = "nome", nullable = false, length = 50)
+  @Column(name = "nome", nullable = false)
   private String nome;
 
-  public Departamento(long departamentoID, String nome) {
-    this.departamentoID = departamentoID;
-    this.nome = nome;
-  }
-  public Departamento(){
-  }
+  @OneToMany(mappedBy = "departamento")
+  private List<Funcionario> funcionarios;
 
-  public Long getdepartamentoId() {
-    return this.departamentoID;
-  }
-
-  public void setdepartamentoId(Long departamentoId) {
-    this.departamentoID = departamentoId;
-  }
-
-  public String getnome() {
-    return this.nome;
-  }
-
-  public void setnome(String nome) {
-    this.nome = nome;
-  }
-    
 }

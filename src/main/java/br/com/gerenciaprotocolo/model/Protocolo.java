@@ -10,192 +10,57 @@ public class Protocolo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "protocoloID")
-    private Long protocoloID;
+    @Column(name = "protocolo_id")
+    private Long protocoloId;
 
-    @Column(name = "dataAbertura", nullable = false)
-    private Date dataAbertura;
+    @Column(name = "nome_do_protocolo", nullable = false)
+    private String nomeDoProtocolo;
 
-    @Column(name = "dataPrazo", nullable = false)
-    private Date dataPrazo;
-
-    @Column(name = "dataUltimaAcao", nullable = false)
-    private Date dataUltimaAcao;
-
-    @Column(name = "dataRecebimento", nullable = false)
-    private Date dataRecebimento;
-
-    @Column(name = "nome", nullable = false, length = 50)
-    private String nome;
-
-    @Column(name = "tipoProtocolo", nullable = false, length = 50)
-    private String tipoProtocolo;
-
-    @Column(name = "propensãoBacen", nullable = false)
-    private Boolean propensãoBacen;
-
-    @Column(name = "agilizar", nullable = false)
-    private Boolean agilizar;
-
-    @Column(name = "devido", nullable = false)
-    private Boolean devido;
-
-    @Column(name = "procedente", nullable = false)
-    private Boolean procedente;
-
-    @Lob
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column(name = "clienteID")
-    private Long clienteID;
+    @Column(name = "data_abertura", nullable = false)
+    private Date dataAbertura;
 
-    @Column(name = "canalID")
-    private Long canalID;
+    @Column(name = "data_prazo", nullable = false)
+    private Date dataPrazo;
 
-    @Column(name = "departamentoID")
-    private Long departamentoID;
+    @Column(name = "data_alteracao", nullable = false)
+    private Date dataAlteracao;
 
-    @Column(name = "situacaoProtocoloID")
-    private Long situacaoProtocoloID;
+    @Column(name = "data_recebimento", nullable = false)
+    private Date dataRecebimento;
 
-    public Long getProtocoloID() {
-        return protocoloID;
-    }
+    @Column(name = "tipo_protocolo", nullable = false)
+    private String tipoProtocolo;
 
-    public void setProtocoloID(Long protocoloID) {
-        this.protocoloID = protocoloID;
-    }
+    @Column(name = "status", nullable = false)
+    private String status;
 
-    public Date getDataAbertura() {
-        return dataAbertura;
-    }
+    @Column(name = "resposta", nullable = false)
+    private String resposta;
 
-    public void setDataAbertura(Date dataAbertura) {
-        this.dataAbertura = dataAbertura;
-    }
+    @Column(name = "PropensãoBacen", nullable = false)
+    private boolean PropensãoBacen;
 
-    public Date getDataPrazo() {
-        return dataPrazo;
-    }
+    @Column(name = "Agilizar", nullable = false)
+    private boolean Agilizar;
 
-    public void setDataPrazo(Date dataPrazo) {
-        this.dataPrazo = dataPrazo;
-    }
+    @Column(name = "Devido", nullable = false)
+    private boolean Devido;
 
-    public Date getDataUltimaAcao() {
-        return dataUltimaAcao;
-    }
+    @Column(name = "Procedente", nullable = false)
+    private boolean Procedente;
 
-    public void setDataUltimaAcao(Date dataUltimaAcao) {
-        this.dataUltimaAcao = dataUltimaAcao;
-    }
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
-    public Date getDataRecebimento() {
-        return dataRecebimento;
-    }
+    @ManyToOne
+    @JoinColumn(name = "canal_id")
+    private Canal canal;
 
-    public void setDataRecebimento(Date dataRecebimento) {
-        this.dataRecebimento = dataRecebimento;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTipoProtocolo() {
-        return tipoProtocolo;
-    }
-
-    public void setTipoProtocolo(String tipoProtocolo) {
-        this.tipoProtocolo = tipoProtocolo;
-    }
-
-    public Boolean getPropensãoBacen() {
-        return propensãoBacen;
-    }
-
-    public void setPropensãoBacen(Boolean propensãoBacen) {
-        this.propensãoBacen = propensãoBacen;
-    }
-
-    public Boolean getAgilizar() {
-        return agilizar;
-    }
-
-    public void setAgilizar(Boolean agilizar) {
-        this.agilizar = agilizar;
-    }
-
-    public Boolean getDevido() {
-        return devido;
-    }
-
-    public void setDevido(Boolean devido) {
-        this.devido = devido;
-    }
-
-    public Boolean getProcedente() {
-        return procedente;
-    }
-
-    public void setProcedente(Boolean procedente) {
-        this.procedente = procedente;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Long getClienteID() {
-        return clienteID;
-    }
-
-    public void setClienteID(Long clienteID) {
-        this.clienteID = clienteID;
-    }
-
-    public Long getCanalID() {
-        return canalID;
-    }
-
-    public void setCanalID(Long canalID) {
-        this.canalID = canalID;
-    }
-
-    public Long getDepartamentoID() {
-        return departamentoID;
-    }
-
-    public void setDepartamentoID(Long departamentoID) {
-        this.departamentoID = departamentoID;
-    }
-
-    public Long getSituacaoProtocoloID() {
-        return situacaoProtocoloID;
-    }
-
-    public void setSituacaoProtocoloID(Long situacaoProtocoloID) {
-        this.situacaoProtocoloID = situacaoProtocoloID;
-    }
-
-    @Override
-    public String toString() {
-        return "Protocolo [protocoloID=" + protocoloID + ", dataAbertura=" + dataAbertura + ", dataPrazo=" + dataPrazo
-                + ", dataUltimaAcao=" + dataUltimaAcao + ", dataRecebimento=" + dataRecebimento + ", nome=" + nome
-                + ", tipoProtocolo=" + tipoProtocolo + ", propensãoBacen=" + propensãoBacen + ", agilizar=" + agilizar
-                + ", devido=" + devido + ", procedente=" + procedente + ", descricao=" + descricao + ", clienteID="
-                + clienteID + ", canalID=" + canalID + ", departamentoID=" + departamentoID + ", situacaoProtocoloID="
-                + situacaoProtocoloID + "]";
-    }
-
-    
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id")
+    private Funcionario funcionario;
 }

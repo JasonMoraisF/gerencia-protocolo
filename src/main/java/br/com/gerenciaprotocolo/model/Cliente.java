@@ -1,61 +1,42 @@
 package br.com.gerenciaprotocolo.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Cliente")
 public class Cliente {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "clienteID")
-    private Long clienteID;
+    @Column(name = "cliente_id")
+    private Long clienteId;
 
-    @Column(name = "nome", nullable = true, length = 100)
+    @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(name = "email", nullable = false, length = 10)
+    @Column(name = "cpf", nullable = false)
+    private String cpf;
+
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "telefoneID")
-    private Long telefoneID;
+    @Column(name = "tipo_cliente", nullable = false)
+    private String tipoCliente;
 
-    public Long getClienteID() {
-        return clienteID;
-    }
+    @Column(name = "telefone", nullable = true)
+    private String telefone;
 
-    public void setClienteID(Long clienteID) {
-        this.clienteID = clienteID;
-    }
+    @Column(name = "ddd", nullable = true)
+    private String ddd;
 
-    public String getNome() {
-        return nome;
-    }
+    @Column(name = "tipo_telefone", nullable = true)
+    private String tipoTelefone;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getTelefoneID() {
-        return telefoneID;
-    }
-
-    public void setTelefoneID(Long telefoneID) {
-        this.telefoneID = telefoneID;
-    }
-
-    @Override
-    public String toString() {
-        return "Cliente [clienteID=" + clienteID + ", nome=" + nome + ", email=" + email + ", telefoneID=" + telefoneID
-                + "]";
-    }
-
+    @OneToOne(mappedBy = "cliente")
+    private Conta conta;
+    
+    @OneToMany(mappedBy = "cliente")
+    private List<Protocolo> protocolos;
 }

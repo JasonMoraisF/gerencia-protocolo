@@ -5,33 +5,13 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Canal")
 public class Canal {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "canalID")
-    private Long canalID;
-  
-    @Column(name = "TipoCanal", nullable = false, length = 30)
-    private String TipoCanal;
+    @Column(name = "canal_id")
+    private Long canalId;
 
-    public Long getCanalID() {
-        return canalID;
-    }
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
-    public void setCanalID(Long canalID) {
-        this.canalID = canalID;
-    }
-
-    public String getTipoCanal() {
-        return TipoCanal;
-    }
-
-    public void setTipoCanal(String tipoCanal) {
-        TipoCanal = tipoCanal;
-    }
-
-    @Override
-    public String toString() {
-        return "Canal [canalID=" + canalID + ", TipoCanal=" + TipoCanal + "]";
-    }
 }
