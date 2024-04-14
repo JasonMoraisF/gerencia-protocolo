@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import br.com.gerenciaprotocolo.model.Conta;
 import br.com.gerenciaprotocolo.repository.ContaRepository;
 
