@@ -14,7 +14,7 @@
 	<name>gerencia-protocolo</name>
 	<description>Gerenciamento de protocolos de banco.</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -70,8 +70,8 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.8.0</version> <!-- Use a versão do plugin que suporte a configuração de release -->
             <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
+                <source>17</source>
+                <target>17</target>
             </configuration>
         </plugin>
 		</plugins>
