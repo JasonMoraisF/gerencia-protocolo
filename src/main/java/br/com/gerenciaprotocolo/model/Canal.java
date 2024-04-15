@@ -14,4 +14,20 @@ public class Canal {
     @Column(name = "nome", nullable = false)
     private String nome;
 
+    public Long getCanalId() {
+        return canalId;
+    }
+
+    public void setCanalId(Long canalId) {
+        this.canalId = canalId;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
 }
