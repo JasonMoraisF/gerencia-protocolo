@@ -2,6 +2,8 @@ package br.com.gerenciaprotocolo.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,56 +13,55 @@ public class Protocolo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "protocolo_id")
-    private Long protocoloId;
+    private Long protocoloID;
 
-    @Column(name = "nome_do_protocolo", nullable = false)
-    private String nomeDoProtocolo;
+    @Column(name = "data_Abertura", nullable = false)
+    private Date dataAbertura;
+
+    @Column(name = "data_Prazo", nullable = false)
+    private Date dataPrazo;
+
+    @Column(name = "data_UltimaAcao", nullable = false)
+    private Date dataUltimaAcao;
+
+    @Column(name = "data_Recebimento", nullable = false)
+    private Date dataRecebimento;
+
+    @Column(name = "nome", nullable = false, length = 50)
+    private String nome;
+
+    @Column(name = "tipo_protocolo", nullable = false, length = 50)
+    private String tipoProtocolo;
+
+    @Column(name = "propensão_Bacen", nullable = false)
+    private Boolean propensãoBacen;
+
+    @Column(name = "agilizar", nullable = false)
+    private Boolean agilizar;
+
+    @Column(name = "devido", nullable = false)
+    private Boolean devido;
+
+    @Column(name = "procedente", nullable = false)
+    private Boolean procedente;
 
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column(name = "data_abertura", nullable = false)
-    private Date dataAbertura;
+    @JsonManagedReference
+    @OneToOne
+    @JoinColumn(name = "situacaoProtocolo_id")
+    private SituacaoProtocolo situacaoProtocolo;
 
-    @Column(name = "data_prazo", nullable = false)
-    private Date dataPrazo;
-
-    @Column(name = "data_alteracao", nullable = false)
-    private Date dataAlteracao;
-
-    @Column(name = "data_recebimento", nullable = false)
-    private Date dataRecebimento;
-
-    @Column(name = "tipo_protocolo", nullable = false)
-    private String tipoProtocolo;
-
-    @Column(name = "status", nullable = false)
-    private String status;
-
-    @Column(name = "resposta", nullable = false)
-    private String resposta;
-
-    @Column(name = "PropensãoBacen", nullable = false)
-    private boolean PropensãoBacen;
-
-    @Column(name = "Agilizar", nullable = false)
-    private boolean Agilizar;
-
-    @Column(name = "Devido", nullable = false)
-    private boolean Devido;
-
-    @Column(name = "Procedente", nullable = false)
-    private boolean Procedente;
-
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "canal_id")
     private Canal canal;
 
-    @ManyToOne
-    @JoinColumn(name = "funcionario_id")
-    private Funcionario funcionario;
+    @JsonManagedReference
+    @OneToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    
 }

@@ -2,41 +2,38 @@ package br.com.gerenciaprotocolo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Cliente")
 public class Cliente {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cliente_id")
-    private Long clienteId;
+    private Long clienteID;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome", nullable = true, length = 100)
     private String nome;
 
-    @Column(name = "cpf", nullable = false)
+    @Column(name = "cpf", nullable = true, length = 100)
     private String cpf;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "tipo_cliente", nullable = false)
-    private String tipoCliente;
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "tipo_cliente_id")
+    private TipoCliente tipoCliente;
 
-    @Column(name = "telefone", nullable = true)
-    private String telefone;
-
-    @Column(name = "ddd", nullable = true)
-    private String ddd;
-
-    @Column(name = "tipo_telefone", nullable = true)
-    private String tipoTelefone;
-
-    @OneToOne(mappedBy = "cliente")
-    private Conta conta;
-    
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
-    private List<Protocolo> protocolos;
+    private List<Telefone> telefones;
+
+    @JsonManagedReference
+    @OneToOne(mappedBy = "cliente")
+    private Protocolo protocolo;
 }

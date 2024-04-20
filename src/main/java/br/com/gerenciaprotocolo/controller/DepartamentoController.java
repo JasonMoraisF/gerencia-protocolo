@@ -34,7 +34,7 @@ public class DepartamentoController {
     public Departamento updateDepartamento(@PathVariable Long id, @RequestBody Departamento departamentoDetails) {
         Departamento departamento = departamentoRepository.findById(id).orElse(null);
         if (departamento != null) {
-            departamento.setNome(departamentoDetails.getNome());
+           // departamento.setNome(departamentoDetails.getNome());
             return departamentoRepository.save(departamento);
         }
         return null;

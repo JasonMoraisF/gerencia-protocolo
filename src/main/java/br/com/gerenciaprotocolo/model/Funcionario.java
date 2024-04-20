@@ -10,67 +10,28 @@ public class Funcionario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "funcionario_id")
-    private Long funcionarioId;
+    @Column(name = "codigo_funcionario_id")
+    private Long codigoFuncionarioID;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "cargo", nullable = false)
-    private String cargo;
-    
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "departamento_id")
     private Departamento departamento;
 
-	public Long getFuncionarioId() {
-		return funcionarioId;
-	}
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "cargos_id")
+    private Cargos cargos;
 
-	public void setFuncionarioId(Long funcionarioId) {
-		this.funcionarioId = funcionarioId;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
-
-	public Departamento getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
-	}
-
-	@Override
-	public String toString() {
-		return "Funcionario [funcionarioId=" + funcionarioId + ", nome=" + nome + ", email=" + email + ", cargo="
-				+ cargo + ", departamento=" + departamento + "]";
-	}
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "situacaoProtocolo_id")
+    private SituacaoProtocolo situacaoProtocolo;
 
 }

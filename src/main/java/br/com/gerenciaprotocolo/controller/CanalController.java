@@ -34,7 +34,7 @@ public class CanalController {
     public Canal updateCanal(@PathVariable Long id, @RequestBody Canal canalDetails) {
         Canal canal = canalRepository.findById(id).orElse(null);
         if (canal != null) {
-            canal.setNome(canalDetails.getNome());
+            //canal.setTipoCanal(canalDetails.getTipoCanal());
             return canalRepository.save(canal);
         }
         return null;

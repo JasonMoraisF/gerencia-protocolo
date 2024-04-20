@@ -1,6 +1,7 @@
 package br.com.gerenciaprotocolo.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 
 @Entity
 @Table(name = "Conta")
@@ -9,40 +10,22 @@ public class Conta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "conta_id")
-    private Long contaId;
+    private Long contaID;
 
-    @Column(name = "agencia", nullable = false)
+    @Column(name = "agencia", nullable = false, length = 4)
     private String agencia;
 
-    @Column(name = "numero_conta", nullable = false)
+    @Column(name = "numero_Conta", nullable = false, length = 10)
     private String numeroConta;
 
-    @Column(name = "status_conta", nullable = false)
-    private String statusConta;
+    @Column(name = "tipo_cliente_id")
+    private Long tipoClienteID;
 
-    @Column(name = "nome", nullable = false)
-    private String nome;
+    @Column(name= "status_conta")
+    private Boolean statusConta;
 
-    @Column(name = "cpf", nullable = false)
-    private String cpf;
-
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "tipo_cliente", nullable = false)
-    private String tipoCliente;
-
-    @Column(name = "telefone", nullable = true)
-    private String telefone;
-
-    @Column(name = "ddd", nullable = true)
-    private String ddd;
-
-    @Column(name = "tipo_telefone", nullable = true)
-    private String tipoTelefone;
-
+    @JsonManagedReference
     @OneToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    @JoinColumn(name = "titular_id")
+    private Titular titular;
 }
-
