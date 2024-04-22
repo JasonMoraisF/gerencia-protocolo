@@ -28,4 +28,56 @@ public class Conta {
     @OneToOne
     @JoinColumn(name = "titular_id")
     private Titular titular;
+
+    public Long getContaID() {
+        return contaID;
+    }
+
+    public void setContaID(Long contaID) {
+        this.contaID = contaID;
+    }
+
+    public String getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(String agencia) {
+        this.agencia = agencia;
+    }
+
+    public String getNumeroConta() {
+        return numeroConta;
+    }
+
+    public void setNumeroConta(String numeroConta) {
+        this.numeroConta = numeroConta;
+    }
+
+    public Long getTipoClienteID() {
+        return tipoClienteID;
+    }
+
+    public void setTipoClienteID(Long tipoClienteID) {
+        this.tipoClienteID = tipoClienteID;
+    }
+
+    public Boolean getStatusConta() {
+        return statusConta;
+    }
+
+    public void setStatusConta(Boolean statusConta) {
+        this.statusConta = statusConta;
+    }
+
+    public Titular getTitular() {
+        return titular;
+    }
+
+    public void setTitular(Titular titular) {
+        this.titular = titular;
+    }
+
+
+
+    
 }

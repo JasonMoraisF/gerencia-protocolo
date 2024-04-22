@@ -35,4 +35,14 @@ public class Titular {
     @OneToOne(mappedBy = "titular")
     private Conta conta;
 
+    public Long getTitularID() {
+        return titularID;
+    }
+
+    public void setTitularID(Long titularID) {
+        this.titularID = titularID;
+    }
+
+    
+
 }
