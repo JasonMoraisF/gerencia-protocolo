@@ -1,5 +1,9 @@
 package br.com.gerenciaprotocolo.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,30 +12,15 @@ public class TipoCliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tipoClienteID", nullable = false)
+    @Column(name = "tipo_cliente_id", nullable = false)
     private Long tipoClienteID;
 
-    @Column(name = "tipoDoCliente", nullable = false, length = 10)
+    @Column(name = "Tipo_do_cliente", nullable = false, length = 10)
     private String tipoDoCliente;
+ 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "tipoCliente")
+    private List<Cliente> Clientes;
 
-    public Long getTipoClienteID() {
-        return tipoClienteID;
-    }
-
-    @Override
-    public String toString() {
-        return "TipoCliente [tipoClienteID=" + tipoClienteID + ", tipoDoCliente=" + tipoDoCliente + "]";
-    }
-
-    public void setTipoClienteID(Long tipoClienteID) {
-        this.tipoClienteID = tipoClienteID;
-    }
-
-    public String getTipoDoCliente() {
-        return tipoDoCliente;
-    }
-
-    public void setTipoDoCliente(String tipoDoCliente) {
-        this.tipoDoCliente = tipoDoCliente;
-    }
+    
 }

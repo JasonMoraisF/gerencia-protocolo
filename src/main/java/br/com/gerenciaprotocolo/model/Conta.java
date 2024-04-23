@@ -1,6 +1,7 @@
 package br.com.gerenciaprotocolo.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 
 @Entity
 @Table(name = "Conta")
@@ -8,64 +9,23 @@ public class Conta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contaID")
+    @Column(name = "conta_id")
     private Long contaID;
-    
-    @Column(name = "titularID")
-    private Long titularID;
 
     @Column(name = "agencia", nullable = false, length = 4)
     private String agencia;
 
-    @Column(name = "numeroConta", nullable = false, length = 10)
+    @Column(name = "numero_Conta", nullable = false, length = 10)
     private String numeroConta;
 
-    @Column(name = "tipoClienteID")
+    @Column(name = "tipo_cliente_id")
     private Long tipoClienteID;
 
-    public Long getContaID() {
-        return contaID;
-    }
+    @Column(name= "status_conta")
+    private Boolean statusConta;
 
-    public void setContaID(Long contaID) {
-        this.contaID = contaID;
-    }
-
-    public Long getTitularID() {
-        return titularID;
-    }
-
-    public void setTitularID(Long titularID) {
-        this.titularID = titularID;
-    }
-
-    public String getAgencia() {
-        return agencia;
-    }
-
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
-    }
-
-    public String getNumeroConta() {
-        return numeroConta;
-    }
-
-    public void setNumeroConta(String numeroConta) {
-        this.numeroConta = numeroConta;
-    }
-
-    public Long getTipoClienteID() {
-        return tipoClienteID;
-    }
-
-    public void setTipoClienteID(Long tipoClienteID) {
-        this.tipoClienteID = tipoClienteID;
-    }
-
-    @Override
-    public String toString() {
-        return "Conta [contaID=" + contaID + ", titularID=" + titularID + ", agencia=" + agencia + ", numeroConta="
-                + numeroConta + ", tipoClienteID=" + tipoClienteID + "]";
-    }
+    @JsonManagedReference
+    @OneToOne
+    @JoinColumn(name = "titular_id")
+    private Titular titular;
 }

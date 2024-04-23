@@ -1,5 +1,10 @@
 package br.com.gerenciaprotocolo.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,31 +13,15 @@ public class Cargos {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cargosID")
+    @Column(name = "cargos_id")
     private Long cargosID;
   
-    @Column(name = "TipoCargos", nullable = false, length = 30)
+    @Column(name = "tipo_cargos", nullable = false, length = 30)
     private String TipoCargos;
 
-    public Long getCargosID() {
-        return cargosID;
-    }
-
-    public void setCargosID(Long cargosID) {
-        this.cargosID = cargosID;
-    }
-
-    public String getTipoCargos() {
-        return TipoCargos;
-    }
-
-    public void setTipoCargos(String tipoCargos) {
-        TipoCargos = tipoCargos;
-    }
-
-    @Override
-    public String toString() {
-        return "Cargos [cargosID=" + cargosID + ", TipoCargos=" + TipoCargos + "]";
-    }
+    @JsonManagedReference
+    @JsonIgnore
+    @OneToMany(mappedBy = "cargos")
+    private List<Funcionario> funcionarios;
 
 }

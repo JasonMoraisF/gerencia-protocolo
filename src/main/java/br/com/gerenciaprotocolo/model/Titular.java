@@ -1,5 +1,9 @@
 package br.com.gerenciaprotocolo.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,7 +12,7 @@ public class Titular {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "titularID")
+    @Column(name = "titular_id")
     private Long titularID;
 
     @Column(name = "cpf", nullable = false, length = 10)
@@ -20,65 +24,15 @@ public class Titular {
     @Column(name = "email", nullable = false, length = 10)
     private String email;
 
-    @Column(name = "telefoneID")
-    private Long telefoneID;
-
-    @Column(name = "Profissao", nullable = false, length = 50)
+    @Column(name = "profissao", nullable = false, length = 50)
     private String Profissao;
 
-    @Override
-    public String toString() {
-        return "Titular [titularID=" + titularID + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email
-                + ", telefoneID=" + telefoneID + ", Profissao=" + Profissao + "]";
-    }
+    @JsonManagedReference
+    @OneToMany(mappedBy = "titular")
+    private List<Telefone> telefones;
 
-    public Long getTitularID() {
-        return titularID;
-    }
-
-    public void setTitularID(Long titularID) {
-        this.titularID = titularID;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getTelefoneID() {
-        return telefoneID;
-    }
-
-    public void setTelefoneID(Long telefoneID) {
-        this.telefoneID = telefoneID;
-    }
-
-    public String getProfissao() {
-        return Profissao;
-    }
-
-    public void setProfissao(String profissao) {
-        Profissao = profissao;
-    }
-
+    @JsonManagedReference
+    @OneToOne(mappedBy = "titular")
+    private Conta conta;
 
 }

@@ -1,5 +1,9 @@
 package br.com.gerenciaprotocolo.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,54 +12,28 @@ public class Cliente {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "clienteID")
+    @Column(name = "cliente_id")
     private Long clienteID;
 
     @Column(name = "nome", nullable = true, length = 100)
     private String nome;
 
-    @Column(name = "email", nullable = false, length = 10)
+    @Column(name = "cpf", nullable = true, length = 100)
+    private String cpf;
+
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "telefoneID")
-    private Long telefoneID;
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "tipo_cliente_id")
+    private TipoCliente tipoCliente;
 
-    public Long getClienteID() {
-        return clienteID;
-    }
+    @JsonManagedReference
+    @OneToMany(mappedBy = "cliente")
+    private List<Telefone> telefones;
 
-    public void setClienteID(Long clienteID) {
-        this.clienteID = clienteID;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getTelefoneID() {
-        return telefoneID;
-    }
-
-    public void setTelefoneID(Long telefoneID) {
-        this.telefoneID = telefoneID;
-    }
-
-    @Override
-    public String toString() {
-        return "Cliente [clienteID=" + clienteID + ", nome=" + nome + ", email=" + email + ", telefoneID=" + telefoneID
-                + "]";
-    }
-
+    @JsonManagedReference
+    @OneToOne(mappedBy = "cliente")
+    private Protocolo protocolo;
 }

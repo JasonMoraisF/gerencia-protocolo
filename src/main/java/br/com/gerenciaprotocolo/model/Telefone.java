@@ -1,5 +1,7 @@
 package br.com.gerenciaprotocolo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,42 +10,27 @@ public class Telefone {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "telefoneID")
+    @Column(name = "telefone_id")
     private Long telefoneID;
 
     @Column(name = "numero", nullable = false, length = 10)
     private String numero;
 
-    @Column(name = "ddd", nullable = false, length = 2)
+    @Column(name = "DDD", nullable = false, length = 3)
     private String ddd;
 
-    public Long getTelefoneID() {
-        return telefoneID;
-    }
+    @Column(name = "tipo_telefone", nullable = false, length = 10)
+    private String tipoTelefone;
 
-    public void setTelefoneID(Long telefoneID) {
-        this.telefoneID = telefoneID;
-    }
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
-    public String getNumero() {
-        return numero;
-    }
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "titular_id")
+    private Titular titular;
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getDdd() {
-        return ddd;
-    }
-
-    public void setDdd(String ddd) {
-        this.ddd = ddd;
-    }
-
-    @Override
-    public String toString() {
-        return "Telefone [telefoneID=" + telefoneID + ", numero=" + numero + ", ddd=" + ddd + "]";
-    }
-
+    
 }
