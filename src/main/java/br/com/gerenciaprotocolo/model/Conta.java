@@ -24,6 +24,8 @@ public class Conta {
     @Column(name= "status_conta")
     private Boolean statusConta;
 
+
+    @JsonIgnore
     @JsonManagedReference
     @OneToOne
     @JoinColumn(name = "titular_id")
