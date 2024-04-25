@@ -2,7 +2,9 @@ package br.com.gerenciaprotocolo.controller;
 
 import java.util.List;
 
+// import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import br.com.gerenciaprotocolo.model.Conta;
 import br.com.gerenciaprotocolo.repository.ContaRepository;
@@ -19,7 +21,7 @@ public class ContaController {
         return contaRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Conta createConta(@RequestBody Conta conta) {
         return contaRepository.save(conta);
     }
@@ -33,6 +35,10 @@ public class ContaController {
     public Conta updateConta(@PathVariable Long id, @RequestBody Conta contaDetails) {
         Conta conta = contaRepository.findById(id).orElse(null);
         if (conta != null) {
+            conta.setAgencia(contaDetails.getAgencia());
+            conta.setNumeroConta(contaDetails.getNumeroConta());
+            conta.setTipoClienteID(contaDetails.getTipoClienteID());
+            conta.setStatusConta(contaDetails.getStatusConta());
             return contaRepository.save(conta);
         }
         return null;
