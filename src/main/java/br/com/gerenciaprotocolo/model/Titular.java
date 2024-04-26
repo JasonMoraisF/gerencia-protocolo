@@ -2,6 +2,7 @@ package br.com.gerenciaprotocolo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -31,8 +32,8 @@ public class Titular {
     @OneToMany(mappedBy = "titular")
     private List<Telefone> telefones;
 
-    @JsonManagedReference
     @OneToOne(mappedBy = "titular")
+    @JsonBackReference
     private Conta conta;
 
     public Long getTitularID() {
