@@ -21,6 +21,24 @@ public class Departamento {
   @JsonManagedReference
   @OneToMany(mappedBy = "departamento")
   private List<Funcionario> funcionarios;
+
+  public Long getDepartamentoID() {
+    return departamentoID;
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  public void setDepartamentoID(Long departamentoID) {
+    this.departamentoID = departamentoID;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
   
   
 }
+
+

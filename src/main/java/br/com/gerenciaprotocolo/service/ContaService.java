@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContaService {
 
-    @Autowired
+  @Autowired  
     private ContaRepository contaRepository;
 
     public Conta saveConta(Conta conta) {
