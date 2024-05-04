@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import br.com.gerenciaprotocolo.model.Conta;
 import br.com.gerenciaprotocolo.model.Funcionario;
 import br.com.gerenciaprotocolo.repository.FuncionarioRepository;
 
@@ -35,11 +36,14 @@ public class FuncionarioController {
     public Funcionario updateFuncionario(@PathVariable Long id, @RequestBody Funcionario funcionarioDetails) {
         Funcionario funcionario = funcionarioRepository.findById(id).orElse(null);
         if (funcionario != null) {
+            funcionario.setNome(funcionarioDetails.getNome());
+            funcionario.setEmail(funcionarioDetails.getEmail());
+            funcionario.setDepartamento(funcionarioDetails.getDepartamento());
+            funcionario.setCargos(funcionarioDetails.getCargos());
             return funcionarioRepository.save(funcionario);
         }
         return null;
     }
-
     @DeleteMapping("/{id}")
     public void deleteFuncionario(@PathVariable Long id) {
         funcionarioRepository.deleteById(id);

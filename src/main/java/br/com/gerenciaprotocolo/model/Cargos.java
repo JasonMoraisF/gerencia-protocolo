@@ -24,4 +24,30 @@ public class Cargos {
     @OneToMany(mappedBy = "cargos")
     private List<Funcionario> funcionarios;
 
+    public Long getCargosID() {
+        return cargosID;
+    }
+
+    public void setCargosID(Long cargosID) {
+        this.cargosID = cargosID;
+    }
+
+    public String getTipoCargos() {
+        return TipoCargos;
+    }
+
+    public void setTipoCargos(String tipoCargos) {
+        TipoCargos = tipoCargos;
+    }
+
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    
+
 }
