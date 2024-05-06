@@ -34,7 +34,7 @@ public class TitularController {
     }
 
     @GetMapping("/{id}")
-    public Titular geTitularById(@PathVariable Long id){
+    public Titular getTitularById(@PathVariable Long id){
         return titularRepository.findById(id).orElse(null);
     }
 

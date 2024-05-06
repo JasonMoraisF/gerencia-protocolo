@@ -29,9 +29,8 @@ public class Titular {
     @Column(name = "profissao", nullable = false, length = 50)
     private String Profissao;
 
-    @JsonIgnore
     @JsonManagedReference
-    @OneToMany(mappedBy = "titular")
+    @OneToMany(mappedBy = "titular", cascade = CascadeType.REMOVE)
     private List<Telefone> telefones;
 
     @OneToOne(mappedBy = "titular")
