@@ -15,7 +15,7 @@ public class Telefone {
     @Column(name = "telefone_id")
     private Long telefoneID;
 
-    @Column(name = "numero", nullable = false, length = 12)
+    @Column(name = "numero", nullable = false, length = 9)
     private String numero;
 
     @Column(name = "DDD", nullable = false, length = 3)

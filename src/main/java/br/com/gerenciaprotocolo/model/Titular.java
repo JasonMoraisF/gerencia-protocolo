@@ -30,7 +30,7 @@ public class Titular {
     private String Profissao;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "titular")
+    @OneToMany(mappedBy = "titular", cascade = CascadeType.REMOVE)
     private List<Telefone> telefones;
 
     @OneToOne(mappedBy = "titular")
