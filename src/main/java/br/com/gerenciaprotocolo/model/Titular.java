@@ -29,7 +29,6 @@ public class Titular {
     @Column(name = "profissao", nullable = false, length = 50)
     private String Profissao;
 
-    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "titular")
     private List<Telefone> telefones;
