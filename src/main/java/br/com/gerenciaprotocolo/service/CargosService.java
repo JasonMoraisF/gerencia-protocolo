@@ -20,7 +20,11 @@ public class CargosService {
         return cargoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cargo não encontrada com o ID: " + id));
     }
 
-    public Cargos saveCargos(Cargos cargo){
+    public List<Cargos> findAll() {
+        return cargoRepository.findAll();
+    }
+
+    public Cargos createCargos(Cargos cargo){
         return cargoRepository.save(cargo);
     }
 
@@ -33,9 +37,11 @@ public class CargosService {
 
     public Cargos removeFuncionario(Long idFuncionario , long idCargo){
         
+        
         Cargos existingCargos = cargoRepository.findById(idCargo).orElseThrow(() -> new EntityNotFoundException("Cargo não encontrada com o ID: " + idCargo));
         List<Funcionario> funcionarios = existingCargos.getFuncionarios();
-        funcionarios.remove(idFuncionario-1);
+        funcionarios.remove(idFuncionario.intValue()-1);
+        existingCargos.setFuncionarios(funcionarios);
 
         return cargoRepository.save(existingCargos);
     }
