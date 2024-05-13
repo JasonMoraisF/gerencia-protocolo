@@ -28,9 +28,9 @@ public class Telefone {
 
 
     @JsonIgnore
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
 
     @JsonBackReference
