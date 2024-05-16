@@ -22,6 +22,30 @@ public class Canal {
     @OneToMany(mappedBy = "canal")
     private List<Protocolo> protocolos;
 
+    public Long getCanalID() {
+        return canalID;
+    }
+
+    public void setCanalID(Long canalID) {
+        this.canalID = canalID;
+    }
+
+    public String getTipoCanal() {
+        return TipoCanal;
+    }
+
+    public void setTipoCanal(String tipoCanal) {
+        TipoCanal = tipoCanal;
+    }
+
+    public List<Protocolo> getProtocolos() {
+        return protocolos;
+    }
+
+    public void setProtocolos(List<Protocolo> protocolos) {
+        this.protocolos = protocolos;
+    }
+
     
 
 }
