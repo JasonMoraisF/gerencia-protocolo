@@ -14,8 +14,12 @@ import java.util.Random;
 public class Funcionario {
 
     @Id
-    @Column(name = "codigo_funcionario_id", unique = true, updatable = false)
-    private String codigoFuncionarioID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_banco_de_dados", unique = true, updatable = false)
+    private long codigoFuncionarioID;
+
+    @Column(name = "codigo_funcionario_id_personalizado", unique = true, updatable = false)
+    private String codigoFuncionarioIDPersonalizado; 
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
@@ -41,10 +45,11 @@ public class Funcionario {
     @JoinColumn(name = "situacaoProtocolo_id", referencedColumnName = "situacaoProtocolo_id")
     private SituacaoProtocolo situacaoProtocolo;
 
-    // Construtor para gerar o ID formatado
-    public Funcionario() {
-        this.codigoFuncionarioID = generateFormattedId();
+     // Construtor para gerar o ID formatado
+     public Funcionario() {
+        this.codigoFuncionarioIDPersonalizado = generateFormattedId(); // Gera o ID personalizado
     }
+    
 
      // Método para gerar o ID formatado
      private String generateFormattedId() {
@@ -59,12 +64,17 @@ public class Funcionario {
 
     // Getters e Setters
 
-    public String getCodigoFuncionarioID() {
+    public long getCodigoFuncionarioID() {
         return codigoFuncionarioID;
     }
-
-    public void setCodigoFuncionarioID(String codigoFuncionarioID) {
+    public String getcodigoFuncionarioIDPersonalizado(){
+        return codigoFuncionarioIDPersonalizado;
+    }
+    public void setCodigoFuncionarioID(long codigoFuncionarioID) {
         this.codigoFuncionarioID = codigoFuncionarioID;
+    }
+    public void setcodigoFuncionarioIDPersonalizado(String codigoFuncionarioIDPersonalizado) {
+        this.codigoFuncionarioIDPersonalizado = codigoFuncionarioIDPersonalizado;
     }
 
     public String getNome() {

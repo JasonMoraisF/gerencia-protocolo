@@ -22,13 +22,15 @@ public class FuncionarioService {
 
     public Funcionario updateFuncionario(Long funcionarioId, Funcionario updatedFuncionario) {
         Funcionario existingFuncionario = funcionarioRepository.findById(funcionarioId)
-                .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId));
+               .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId));
 
-                existingFuncionario.setNome(updatedFuncionario.getNome());
-                existingFuncionario.setEmail(updatedFuncionario.getEmail());
-                existingFuncionario.setDepartamento(updatedFuncionario.getDepartamento());
-                existingFuncionario.setCargos(updatedFuncionario.getCargos());
-                return funcionarioRepository.save(existingFuncionario);
+        // Atualizando os campos do funcionário existente com os novos valores
+        existingFuncionario.setNome(updatedFuncionario.getNome());
+        existingFuncionario.setEmail(updatedFuncionario.getEmail());
+        existingFuncionario.setDepartamento(updatedFuncionario.getDepartamento());
+        existingFuncionario.setCargos(updatedFuncionario.getCargos());
+
+        return funcionarioRepository.save(existingFuncionario);
     }
 
     public void deleteFuncionario(Long funcionarioId) {
@@ -37,10 +39,11 @@ public class FuncionarioService {
 
     public Funcionario findById(Long id) {
         return funcionarioRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + id));
+               .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + id));
     }
 
     public List<Funcionario> findAll() {
         return funcionarioRepository.findAll();
     }
 }
+
