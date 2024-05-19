@@ -41,6 +41,22 @@ public class Titular {
         return titularID;
     }
 
+    public List<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
+
     public void setTitularID(Long titularID) {
         this.titularID = titularID;
     }

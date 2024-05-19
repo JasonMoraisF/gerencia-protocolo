@@ -26,13 +26,9 @@ public class Cliente {
     @Column(name = "email", nullable = true, length = 100)
     private String email;
 
-    @JsonIgnore
-    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name = "tipo_cliente_id", nullable = true)
+    @Column(name = "tipo_cliente", nullable = true)
     private TipoCliente tipoCliente;
 
-    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Telefone> telefones;

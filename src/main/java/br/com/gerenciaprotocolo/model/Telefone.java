@@ -21,11 +21,9 @@ public class Telefone {
     @Column(name = "DDD", nullable = false, length = 3)
     private String ddd;
 
-  
     @Column(name = "tipo_telefone", nullable = false, length = 11)
     @Enumerated(EnumType.STRING)
     private TipoTelefone tipoTelefone;
-
 
     @JsonIgnore
     @JsonBackReference
@@ -35,7 +33,7 @@ public class Telefone {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "titular_id")
+    @JoinColumn(name = "titular_id", nullable = true)
     private Titular titular;
 
     public Long getTelefoneID() {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gerenciaprotocolo.model.Titular;
+import br.com.gerenciaprotocolo.repository.TelefoneRepository;
 import br.com.gerenciaprotocolo.repository.TitularRepository;
 
 @RestController
@@ -23,6 +24,9 @@ public class TitularController {
     @Autowired
     private TitularRepository titularRepository;
     
+    @Autowired
+    private TelefoneRepository telefoneRepository;
+    
     @GetMapping
     public List<Titular> getAllTitulares(){
         return titularRepository.findAll();
@@ -30,7 +34,16 @@ public class TitularController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Titular createTitular(@RequestBody Titular titular){
-        return titularRepository.save(titular);
+        Titular savedTitular;
+        savedTitular = titularRepository.save(titular);
+
+        if(savedTitular.getTelefones() != null &&!savedTitular.getTelefones().isEmpty()){
+            savedTitular.getTelefones().forEach(telefone ->{
+                telefone.setTitular(savedTitular);
+                telefoneRepository.save(telefone);
+            });
+        }
+        return savedTitular;
     }
 
     @GetMapping("/{id}")
