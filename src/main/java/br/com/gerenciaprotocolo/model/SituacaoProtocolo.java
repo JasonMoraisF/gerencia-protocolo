@@ -30,7 +30,7 @@ public class SituacaoProtocolo {
     @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "situacaoProtocolo")
-    private Protocolo protocolo;
+    private List<Protocolo> protocolos;
 
     public String getResposta() {
         return resposta;
@@ -56,13 +56,16 @@ public class SituacaoProtocolo {
         this.funcionarios = funcionarios;
     }
 
-    public Protocolo getProtocolo() {
-        return protocolo;
+    public List<Protocolo> getProtocolos() {
+        return protocolos;
     }
 
-    public void setProtocolo(Protocolo protocolo) {
-        this.protocolo = protocolo;
+    public void setProtocolos(List<Protocolo> protocolos) {
+        this.protocolos = protocolos;
     }
 
+    public Long getSituacaoProtocoloID() {
+        return situacaoProtocoloID;
+    }
 
 }
