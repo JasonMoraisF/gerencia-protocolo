@@ -2,6 +2,7 @@ package br.com.gerenciaprotocolo.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -31,7 +32,8 @@ public class Protocolo {
     private String nome;
 
     @Column(name = "tipo_protocolo", nullable = false, length = 50)
-    private String tipoProtocolo;
+    @Enumerated(EnumType.STRING)
+    private TipoProtocolo tipoProtocolo;
 
     @Column(name = "propensão_Bacen", nullable = false)
     private Boolean propensãoBacen;
