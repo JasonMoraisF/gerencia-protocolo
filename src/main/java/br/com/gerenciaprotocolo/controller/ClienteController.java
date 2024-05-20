@@ -14,7 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
-
+ 
     @Autowired
     private ClienteRepository clienteRepository;
 
@@ -30,6 +30,7 @@ public class ClienteController {
     public Cliente createCliente(@RequestBody Cliente cliente) {
         Cliente savedCliente;
         savedCliente = clienteRepository.save(cliente);
+        
         if(savedCliente.getTelefones() != null &&!savedCliente.getTelefones().isEmpty()){
             savedCliente.getTelefones().forEach(telefone ->{
                 telefone.setCliente(savedCliente);

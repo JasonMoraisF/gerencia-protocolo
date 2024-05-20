@@ -27,16 +27,20 @@ public class Cliente {
     private String email;
 
     @Column(name = "tipo_cliente", nullable = true)
+    @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Telefone> telefones;
 
     @JsonIgnore
     @JsonBackReference
     @OneToOne(mappedBy = "cliente")
     private Protocolo protocolo;
+
+    public void setClienteID(Long clienteID) {
+        this.clienteID = clienteID;
+    }
 
     public Long getClienteID() {
         return clienteID;

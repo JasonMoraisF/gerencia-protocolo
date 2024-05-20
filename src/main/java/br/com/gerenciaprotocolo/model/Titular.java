@@ -3,7 +3,6 @@ package br.com.gerenciaprotocolo.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -29,8 +28,7 @@ public class Titular {
     @Column(name = "profissao", nullable = false, length = 50)
     private String Profissao;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "titular", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Telefone> telefones;
 
     @OneToOne(mappedBy = "titular")

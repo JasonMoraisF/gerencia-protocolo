@@ -1,9 +1,9 @@
 package br.com.gerenciaprotocolo.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-public enum TipoCliente {
 
-  FISICO("fisico"),
+public enum TipoCliente {
+    FISICO("fisico"),
     JURIDICO("juridico");
     
     private String descricao;
@@ -11,6 +11,7 @@ public enum TipoCliente {
     TipoCliente(String descricao){
         this.descricao = descricao;
     }
+    
     public String getDescricao(){
         return descricao;
     }
