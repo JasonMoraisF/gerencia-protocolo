@@ -28,7 +28,7 @@ public enum TipoProtocolo {
                 return tipo;
             }
         }
-        throw new IllegalArgumentException("Tipo Invalido: " + descricao)
+        throw new IllegalArgumentException("Tipo Invalido: " + descricao);
     }
 
 

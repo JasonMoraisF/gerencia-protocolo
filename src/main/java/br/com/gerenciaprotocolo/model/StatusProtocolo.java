@@ -3,7 +3,7 @@ package br.com.gerenciaprotocolo.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@
+
 public enum StatusProtocolo {
     REDIRECIONADO("redirecionado"),
     ANALISE("analise"),
