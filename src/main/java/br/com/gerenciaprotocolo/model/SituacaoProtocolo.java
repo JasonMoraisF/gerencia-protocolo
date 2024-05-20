@@ -15,18 +15,19 @@ public class SituacaoProtocolo {
     @Column(name = "situacaoProtocolo_id")
     private Long situacaoProtocoloID;
 
-    @Column(name = "resposta", nullable = false, length = 50)
+    @Column(name = "resposta", nullable = false, length = 500)
     private String resposta;
 
     @Column(name = "status", nullable = false, length = 50)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusProtocolo status;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "situacaoProtocolo")
     private List<Funcionario> funcionarios;
 
     @JsonManagedReference
-    @OneToOne(mappedBy = "situacaoProtocolo")
+    @OneToMany(mappedBy = "situacaoProtocolo")
     private Protocolo protocolo;
 
 }
