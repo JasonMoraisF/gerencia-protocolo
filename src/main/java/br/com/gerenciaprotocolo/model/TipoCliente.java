@@ -1,26 +1,34 @@
 package br.com.gerenciaprotocolo.model;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "TipoCliente")
-public class TipoCliente {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tipo_cliente_id", nullable = false)
-    private Long tipoClienteID;
-
-    @Column(name = "Tipo_do_cliente", nullable = false, length = 10)
-    private String tipoDoCliente;
- 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "tipoCliente")
-    private List<Cliente> Clientes;
-
+public enum TipoCliente {
+    FISICO("fisico"),
+    JURIDICO("juridico");
     
+    private String descricao;
+
+    TipoCliente(String descricao){
+        this.descricao = descricao;
+    }
+    
+    public String getDescricao(){
+        return descricao;
+    }
+
+    @JsonCreator
+    public static TipoCliente fromDescricao(String descricao){
+        for(TipoCliente tipo : TipoCliente.values()){
+            if(tipo.getDescricao().equals(descricao)){
+                return tipo;
+            }
+        }
+        throw new IllegalArgumentException("Tipo do Cliente invalido: " + descricao);
+    }
+
+    @Override
+    @JsonValue
+    public String toString(){
+        return descricao;
+    }
 }
