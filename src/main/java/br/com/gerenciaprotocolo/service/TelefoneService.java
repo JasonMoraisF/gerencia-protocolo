@@ -1,5 +1,7 @@
 package br.com.gerenciaprotocolo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,13 @@ public class TelefoneService {
     @Autowired
     private TelefoneRepository telefoneRepository; 
 
-    public Telefone saveTelefone(Telefone telefone){
-        return telefoneRepository.save(telefone);
-        
+
+    public List<Telefone> findAllTelefones(){
+        return telefoneRepository.findAll();
+    }
+
+    public Telefone findTelefoneById(Long id){
+        return telefoneRepository.findById(id).orElse(null);
     }
 
     public Telefone updateTelefone(Long id, Telefone updatedTelefone){
@@ -30,10 +36,5 @@ public class TelefoneService {
     public void deleteTelefone(Long id){
         telefoneRepository.deleteById(id);
     }
-
-    public Telefone findByTelefone(Long id){
-        return telefoneRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Telefone inexistente"));
-    }
-
     
 }

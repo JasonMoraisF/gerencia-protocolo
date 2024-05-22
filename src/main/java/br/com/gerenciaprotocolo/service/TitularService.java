@@ -32,7 +32,6 @@ public class TitularService {
     
     public Titular saveTitular(Titular titular){
         Titular savedTitular = titularRepository.save(titular);
-        List<Telefone> telefones = new ArrayList<>();
         if(savedTitular.getTelefones()!= null &&!titular.getTelefones().isEmpty()) {
             savedTitular.getTelefones().forEach(telefone ->{
                 telefone.setTitular(savedTitular);
