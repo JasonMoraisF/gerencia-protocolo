@@ -1,5 +1,6 @@
 package br.com.gerenciaprotocolo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -29,7 +30,7 @@ public class Titular {
     private String Profissao;
 
     @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Telefone> telefones;
+    private List<Telefone> telefones = new ArrayList<>();
 
     @OneToOne(mappedBy = "titular")
     @JsonBackReference

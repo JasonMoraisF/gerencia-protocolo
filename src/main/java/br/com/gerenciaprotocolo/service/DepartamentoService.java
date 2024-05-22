@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import br.com.gerenciaprotocolo.model.Conta;
 import br.com.gerenciaprotocolo.model.Departamento;
 import br.com.gerenciaprotocolo.repository.DepartamentoRepository;
-
+ 
 @Service
 public class DepartamentoService {
 

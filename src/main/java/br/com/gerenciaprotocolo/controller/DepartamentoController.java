@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import br.com.gerenciaprotocolo.model.Departamento;
 import br.com.gerenciaprotocolo.repository.DepartamentoRepository;
-
+ 
 @RestController
 @RequestMapping("/api/departamentos")
 public class DepartamentoController {

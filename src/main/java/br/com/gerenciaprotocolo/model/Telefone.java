@@ -1,15 +1,12 @@
 package br.com.gerenciaprotocolo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,7 +40,6 @@ public class Telefone {
     @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
 
-    
     @ManyToOne
     @JoinColumn(name = "titular_id", nullable = true)
     private Titular titular;

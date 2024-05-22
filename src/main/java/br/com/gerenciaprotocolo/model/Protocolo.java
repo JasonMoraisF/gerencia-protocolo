@@ -35,6 +35,11 @@ public class Protocolo {
     @Enumerated(EnumType.STRING)
     private TipoProtocolo tipoProtocolo;
 
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "departamento_id", nullable = true)
+    private Departamento departamento;
+
     @Column(name = "propensão_Bacen", nullable = false)
     private Boolean propensãoBacen;
 

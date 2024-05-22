@@ -16,57 +16,43 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.gerenciaprotocolo.model.Titular;
 import br.com.gerenciaprotocolo.repository.TelefoneRepository;
 import br.com.gerenciaprotocolo.repository.TitularRepository;
+import br.com.gerenciaprotocolo.service.TitularService;
 
 @RestController
 @RequestMapping("/api/titulares")
 public class TitularController {
 
     @Autowired
-    private TitularRepository titularRepository;
+    private TitularService titularService;
     
     @Autowired
     private TelefoneRepository telefoneRepository;
     
     @GetMapping
     public List<Titular> getAllTitulares(){
-        return titularRepository.findAll();
+        return titularService.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Titular createTitular(@RequestBody Titular titular){
-        Titular savedTitular;
-        savedTitular = titularRepository.save(titular);
-
-        if(savedTitular.getTelefones() != null &&!savedTitular.getTelefones().isEmpty()){
-            savedTitular.getTelefones().forEach(telefone ->{
-                telefone.setTitular(savedTitular);
-                telefoneRepository.save(telefone);
-            });
-        }
+        Titular savedTitular = titularService.saveTitular(titular);
         return savedTitular;
     }
 
     @GetMapping("/{id}")
     public Titular getTitularById(@PathVariable Long id){
-        return titularRepository.findById(id).orElse(null);
+        return titularService.findById(id);
     }
 
     @PutMapping("/{id}")
     public Titular updateTitular(@PathVariable Long id, @RequestBody Titular titularDetails){
-        Titular titular = titularRepository.findById(id).orElse(null);
-        if(titular != null){
-            titular.setCpf(titularDetails.getCpf());
-            titular.setNome(titularDetails.getNome());
-            titular.setEmail(titularDetails.getEmail());
-            titular.setProfissao(titularDetails.getProfissao());
-            return titularRepository.save(titular);
-        }
-        return null;
+        return titularService.updateTitular(id, titularDetails);
+
     }
 
     @DeleteMapping("/{id}")
     public void deleteTitular(@PathVariable Long id){
-        titularRepository.deleteById(id);
+        titularService.deleteTitular(id);
     }
 
 }
