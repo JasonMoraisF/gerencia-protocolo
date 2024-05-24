@@ -1,12 +1,14 @@
 package br.com.gerenciaprotocolo.service;
 
 import jakarta.persistence.EntityNotFoundException;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import br.com.gerenciaprotocolo.model.Conta;
 import br.com.gerenciaprotocolo.model.Departamento;
 import br.com.gerenciaprotocolo.repository.DepartamentoRepository;
-
+ 
 @Service
 public class DepartamentoService {
 
@@ -17,18 +19,16 @@ public class DepartamentoService {
         return departamentoRepository.save(departamento);
     }
 
-    public Departamento updatedDepartamento(Long departamentoID, String name) {
+    public Departamento updatedDepartamento(Long departamentoID, Departamento departamento) {
         Departamento existingDepartamento = departamentoRepository.findById(departamentoID)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Departamento não encontrado com o ID: " + departamentoID));
-
-        existingDepartamento.setDepartamentoID(departamentoID);
-        existingDepartamento.setNome(name);
+        existingDepartamento.setNome(departamento.getNome());
         return departamentoRepository.save(existingDepartamento);
     }
 
     
-    public Iterable<Departamento> findAll() {
+    public List<Departamento> findAll() {
         return departamentoRepository.findAll();
     }
     
@@ -36,6 +36,13 @@ public class DepartamentoService {
         return departamentoRepository.findById(departamentoID).orElseThrow(
             () -> new EntityNotFoundException("Departamento não encontrado com o ID: " + departamentoID));
         }
-        
+    public Departamento deleteByID(Long departamentoID){
+        Departamento existingDepartamento = departamentoRepository.findById(departamentoID)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Departamento não encontrado com o ID: " + departamentoID));
+        departamentoRepository.deleteById(departamentoID);
+        return existingDepartamento;
+    }    
+
     }
 

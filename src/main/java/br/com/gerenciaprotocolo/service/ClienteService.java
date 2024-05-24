@@ -1,10 +1,13 @@
 package br.com.gerenciaprotocolo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciaprotocolo.model.Cliente;
 import br.com.gerenciaprotocolo.repository.ClienteRepository;
+import br.com.gerenciaprotocolo.repository.TelefoneRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -12,9 +15,20 @@ public class ClienteService {
     
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private TelefoneRepository telefoneRepository;
 
     public Cliente saveCliente(Cliente cliente){
-        return clienteRepository.save(cliente);
+        Cliente savedCliente;
+        savedCliente = clienteRepository.save(cliente);
+        
+        if(savedCliente.getTelefones() != null &&!savedCliente.getTelefones().isEmpty()){
+            savedCliente.getTelefones().forEach(telefone ->{
+                telefone.setCliente(savedCliente);
+                telefoneRepository.save(telefone);
+            });
+        }
+        return savedCliente;
     }
 
     public Cliente updateCliente(Long cliente_id, Cliente updatedCliente){
@@ -23,7 +37,6 @@ public class ClienteService {
         existingCliente.setNome(updatedCliente.getNome());
         existingCliente.setCpf(updatedCliente.getCpf());
         existingCliente.setEmail(updatedCliente.getEmail());
-        //TIPOCLIENTE
         return clienteRepository.save(existingCliente);
     }
 
@@ -34,6 +47,9 @@ public class ClienteService {
     public Cliente findByCliente(Long id){
         return clienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente nao encontrado pelo ID: " + id));
         
+    }
+    public List<Cliente> findAll(){
+        return clienteRepository.findAll();
     }
 
 }
