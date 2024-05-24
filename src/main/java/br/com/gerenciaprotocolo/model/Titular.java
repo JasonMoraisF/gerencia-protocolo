@@ -31,8 +31,8 @@ public class Titular {
     @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Telefone> telefones = new ArrayList<>();
 
-    @OneToOne(mappedBy = "titular")
     @JsonBackReference
+    @OneToOne(mappedBy = "titular")
     private Conta conta;
 
     public Long getTitularID() {
