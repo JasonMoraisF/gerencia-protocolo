@@ -1,6 +1,7 @@
 package br.com.gerenciaprotocolo.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
@@ -36,10 +37,12 @@ public class Telefone {
     @Enumerated(EnumType.STRING)
     private TipoTelefone tipoTelefone;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "titular_id", nullable = true)
     private Titular titular;
