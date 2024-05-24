@@ -1,5 +1,7 @@
 package br.com.gerenciaprotocolo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,14 @@ public class SituacaoProtocoloService {
 
     public SituacaoProtocolo findById(Long id){
         return situacaoProtocoloRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Situacao Protocolo nao encontrada: " + id));
+    }
+    
+    public List<SituacaoProtocolo> findAll(){
+        return situacaoProtocoloRepository.findAll();
+    }
+
+    public void deleteSituacaoProtocolo(Long id){
+        situacaoProtocoloRepository.deleteById(id);
     }
 
 

@@ -13,44 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gerenciaprotocolo.model.SituacaoProtocolo;
-import br.com.gerenciaprotocolo.repository.SituacaoProtocoloRepository;
+import br.com.gerenciaprotocolo.service.SituacaoProtocoloService;
 
 @RestController
 @RequestMapping("/api/situacaoProtocolo")
 public class SituacaoProtocoloController {
 
     @Autowired
-    private SituacaoProtocoloRepository situacaoProtocoloRepository;
+    private SituacaoProtocoloService situacaoProtocoloService;
 
     @GetMapping
     public List<SituacaoProtocolo> getAllSituacaoProtocolos(){
-        return situacaoProtocoloRepository.findAll();
+        return situacaoProtocoloService.findAll();
     }
 
     @PostMapping
     public SituacaoProtocolo createSituacaoProtocolo(@RequestBody SituacaoProtocolo situacaoProtocolo){
-        return situacaoProtocoloRepository.save(situacaoProtocolo);
+        return situacaoProtocoloService.saveSituacaoProtocolo(situacaoProtocolo);
     }
 
     @GetMapping("/{id}")
     public SituacaoProtocolo geSituacaoProtocolo(@PathVariable Long id){
-        return situacaoProtocoloRepository.findById(id).orElse(null);
+        return situacaoProtocoloService.findById(id);
     }
 
     @PutMapping("/{id}")
         public SituacaoProtocolo updatedSituacaoProtocolo(@PathVariable Long id, @RequestBody SituacaoProtocolo situacaoProtocoloDetails){
-            SituacaoProtocolo situacaoProtocolo = situacaoProtocoloRepository.findById(id).orElse(null);
-            if (situacaoProtocolo != null){
-                return situacaoProtocoloRepository.save(situacaoProtocolo);
-            }
-            return null;
+            return situacaoProtocoloService.updateSituacaoProtocolo(id, situacaoProtocoloDetails);
         }
         
-    
-
     @DeleteMapping("/{id}")
     public void deleteSituacaoProtocolo(@PathVariable Long id){
-        situacaoProtocoloRepository.deleteById(id);
+        situacaoProtocoloService.deleteSituacaoProtocolo(id);
     }        
 }
      
