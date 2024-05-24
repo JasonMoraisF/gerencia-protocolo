@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import br.com.gerenciaprotocolo.model.Cliente;
 import br.com.gerenciaprotocolo.service.ClienteService;
-import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -16,8 +15,6 @@ public class ClienteController {
  
     @Autowired
     private ClienteService clienteService;
-
-     @Autowired
 
     @GetMapping
     public List<Cliente> getAllClientes() {
