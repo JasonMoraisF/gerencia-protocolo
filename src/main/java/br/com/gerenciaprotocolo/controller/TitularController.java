@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gerenciaprotocolo.model.Titular;
-import br.com.gerenciaprotocolo.repository.TelefoneRepository;
-import br.com.gerenciaprotocolo.repository.TitularRepository;
 import br.com.gerenciaprotocolo.service.TitularService;
 
 @RestController
@@ -24,9 +22,6 @@ public class TitularController {
 
     @Autowired
     private TitularService titularService;
-    
-    @Autowired
-    private TelefoneRepository telefoneRepository;
     
     @GetMapping
     public List<Titular> getAllTitulares(){

@@ -7,8 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.gerenciaprotocolo.model.Cliente;
-import br.com.gerenciaprotocolo.repository.ClienteRepository;
-import br.com.gerenciaprotocolo.repository.TelefoneRepository;
+import br.com.gerenciaprotocolo.service.ClienteService;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
@@ -16,49 +15,32 @@ import jakarta.persistence.EntityNotFoundException;
 public class ClienteController {
  
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteService clienteService;
 
      @Autowired
-    private TelefoneRepository telefoneRepository;
 
     @GetMapping
     public List<Cliente> getAllClientes() {
-        return clienteRepository.findAll();
+        return clienteService.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Cliente createCliente(@RequestBody Cliente cliente) {
-        Cliente savedCliente;
-        savedCliente = clienteRepository.save(cliente);
-        
-        if(savedCliente.getTelefones() != null &&!savedCliente.getTelefones().isEmpty()){
-            savedCliente.getTelefones().forEach(telefone ->{
-                telefone.setCliente(savedCliente);
-                telefoneRepository.save(telefone);
-            });
-        }
-        return savedCliente;
+        return clienteService.saveCliente(cliente);
     }
  
     @GetMapping("/{id}")
     public Cliente getClienteById(@PathVariable Long id) {
-        return clienteRepository.findById(id).orElse(null);
+        return clienteService.findByCliente(id);
     }
 
     @PutMapping("/{id}")
     public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente clienteDetails) {
-        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente nao encontrado com o ID: " + id));
-        if (cliente != null) {
-            cliente.setCpf(clienteDetails.getCpf());
-            cliente.setNome(clienteDetails.getNome());
-            cliente.setEmail(clienteDetails.getEmail());
-            return clienteRepository.save(cliente);
-        }
-        return null;
+        return clienteService.updateCliente(id, clienteDetails);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCliente(@PathVariable Long id) {
-        clienteRepository.deleteById(id);
+        clienteService.deleteCliente(id);
     }
 }

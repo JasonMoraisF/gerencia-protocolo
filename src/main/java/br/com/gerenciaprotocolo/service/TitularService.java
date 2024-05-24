@@ -1,13 +1,10 @@
 package br.com.gerenciaprotocolo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.gerenciaprotocolo.model.Canal;
-import br.com.gerenciaprotocolo.model.Telefone;
 import br.com.gerenciaprotocolo.model.Titular;
 import br.com.gerenciaprotocolo.repository.TelefoneRepository;
 import br.com.gerenciaprotocolo.repository.TitularRepository;
