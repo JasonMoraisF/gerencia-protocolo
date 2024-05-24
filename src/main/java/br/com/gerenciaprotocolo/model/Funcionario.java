@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Random;
-//import java.util.UUID; (não ta sendo usado)
 
 @Entity
 @Table(name = "Funcionario")
