@@ -1,7 +1,12 @@
 package br.com.gerenciaprotocolo.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -9,6 +14,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Protocolo")
+@EntityListeners(AuditingEntityListener.class)
 public class Protocolo {
     
     @Id
@@ -26,6 +32,23 @@ public class Protocolo {
     @Column(name = "descricao", nullable = false)
     private String descricao;
     
+    @Column(name = "agilizar")
+    private Boolean agilizar;
+    
+    @Column(name = "data_Abertura", nullable = false)
+    @CreatedDate
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataAbertura;
+    
+    @PrePersist
+    protected void onCreate(){
+        this.dataAbertura = LocalDateTime.now();
+    }
+    
+    @Column(name = "data_Prazo")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataPrazo;
+
     @JsonIgnore //Por enquanto
     @JsonManagedReference
     @OneToOne
@@ -37,23 +60,15 @@ public class Protocolo {
     @ManyToOne
     @JoinColumn(name = "canal_id")
     private Canal canal;
-
-    @JsonIgnore
-    @Column(name = "data_Abertura", nullable = false)
-    private Date dataAbertura;
     
     @JsonIgnore
-    @Column(name = "data_Prazo", nullable = false)
-    private Date dataPrazo;
-
-    @JsonIgnore
-    @Column(name = "data_UltimaAcao", nullable = false)
+    @Column(name = "data_UltimaAcao")
     private Date dataUltimaAcao;
 
     @JsonIgnore
-    @Column(name = "data_Recebimento", nullable = false)
+    @Column(name = "data_Recebimento")
     private Date dataRecebimento;
-
+    
     @JsonIgnore
     @JsonManagedReference
     @ManyToOne
@@ -61,19 +76,15 @@ public class Protocolo {
     private Departamento departamento;
     
     @JsonIgnore
-    @Column(name = "propensão_Bacen", nullable = false)
+    @Column(name = "propensão_Bacen")
     private Boolean propensãoBacen;
-
-    @JsonIgnore
-    @Column(name = "agilizar", nullable = false)
-    private Boolean agilizar;
     
     @JsonIgnore
-    @Column(name = "devido", nullable = false)
+    @Column(name = "devido")
     private Boolean devido;
     
     @JsonIgnore
-    @Column(name = "procedente", nullable = false)
+    @Column(name = "procedente")
     private Boolean procedente;
     
     @JsonIgnore
@@ -81,80 +92,106 @@ public class Protocolo {
     @OneToOne
     @JoinColumn(name = "situacaoProtocolo_id")
     private SituacaoProtocolo situacaoProtocolo;
-    
 
+    public void calcularDataPrazo(Protocolo protocolo){
+        switch(protocolo.getTipoProtocolo()){
+            case RECLAMACAO:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(5));
+                break;
+            case ELOGIO:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(10)); 
+                break;
+            case INFORMACAO:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
+                break;
+            case SOLICITACAO:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
+                break;
+            case CONSULTA:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
+                break;
+            case DENUNCIA:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(3)); 
+                break;
+            case CANCELAMENTO:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(2)); 
+                break;
+        }
+    }
+
+    
     public Long getProtocoloID() {
         return protocoloID;
     }
-
-    public Date getDataAbertura() {
+    
+    public LocalDateTime getDataAbertura() {
         return dataAbertura;
     }
-
-    public void setDataAbertura(Date dataAbertura) {
+    
+    public void setDataAbertura(LocalDateTime dataAbertura) {
         this.dataAbertura = dataAbertura;
     }
-
-    public Date getDataPrazo() {
+    
+    public LocalDateTime getDataPrazo() {
         return dataPrazo;
     }
-
-    public void setDataPrazo(Date dataPrazo) {
+    
+    public void setDataPrazo(LocalDateTime dataPrazo) {
         this.dataPrazo = dataPrazo;
     }
-
+    
     public Date getDataUltimaAcao() {
         return dataUltimaAcao;
     }
-
+    
     public void setDataUltimaAcao(Date dataUltimaAcao) {
         this.dataUltimaAcao = dataUltimaAcao;
     }
-
+    
     public Date getDataRecebimento() {
         return dataRecebimento;
     }
-
+    
     public void setDataRecebimento(Date dataRecebimento) {
         this.dataRecebimento = dataRecebimento;
     }
-
+    
     public String getNome() {
         return nome;
     }
-
+    
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
     public TipoProtocolo getTipoProtocolo() {
         return tipoProtocolo;
     }
-
+    
     public void setTipoProtocolo(TipoProtocolo tipoProtocolo) {
         this.tipoProtocolo = tipoProtocolo;
     }
-
+    
     public Departamento getDepartamento() {
         return departamento;
     }
-
+    
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
-
+    
     public Boolean getPropensãoBacen() {
         return propensãoBacen;
     }
-
+    
     public void setPropensãoBacen(Boolean propensãoBacen) {
         this.propensãoBacen = propensãoBacen;
     }
-
+    
     public Boolean getAgilizar() {
         return agilizar;
     }
-
+    
     public void setAgilizar(Boolean agilizar) {
         this.agilizar = agilizar;
     }

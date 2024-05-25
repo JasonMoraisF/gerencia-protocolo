@@ -1,5 +1,7 @@
 package br.com.gerenciaprotocolo.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,11 @@ public class ProtocoloService {
     private ProtocoloRepository protocoloRepository;
 
     public Protocolo createProtocolo(Protocolo protocolo){
-        return protocoloRepository.save(protocolo);
+        if(protocolo.getDataAbertura() == null){
+            protocolo.setDataAbertura(LocalDateTime.now());
+            protocolo.calcularDataPrazo(protocolo);
+        }
+            return protocoloRepository.save(protocolo);
     }
 
     public List<Protocolo> findAll(){
