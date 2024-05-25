@@ -18,9 +18,34 @@ public class Departamento {
   @Column(name = "nome", nullable = false, length = 50)
   private String nome;
   
+  @JsonIgnore
   @JsonManagedReference
   @OneToMany(mappedBy = "departamento")
   private List<Funcionario> funcionarios;
+
+  @JsonIgnore
+  @JsonBackReference
+  @OneToMany(mappedBy = "departamento")
+  private List<Protocolo> protocolos;
+
+
+  public Long getDepartamentoID() {
+    return departamentoID;
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  public void setDepartamentoID(Long departamentoID) {
+    this.departamentoID = departamentoID;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
   
   
 }
+
+

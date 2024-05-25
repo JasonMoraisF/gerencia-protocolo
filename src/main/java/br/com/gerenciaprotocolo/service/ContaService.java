@@ -3,13 +3,16 @@ package br.com.gerenciaprotocolo.service;
 import br.com.gerenciaprotocolo.model.Conta;
 import br.com.gerenciaprotocolo.repository.ContaRepository;
 import jakarta.persistence.EntityNotFoundException;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ContaService {
 
-    @Autowired
+  @Autowired  
     private ContaRepository contaRepository;
 
     public Conta saveConta(Conta conta) {
@@ -21,7 +24,7 @@ public class ContaService {
 
         existingConta.setAgencia(updatedConta.getAgencia());
         existingConta.setNumeroConta(updatedConta.getNumeroConta());
-        existingConta.setTipoClienteID(updatedConta.getTipoClienteID());
+        existingConta.setTipoCliente(updatedConta.getTipoCliente());
         return contaRepository.save(existingConta);
     }
 
@@ -31,5 +34,9 @@ public class ContaService {
 
     public Conta findById(Long id) {
         return contaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Conta não encontrada com o ID: " + id));
+    }
+
+    public List<Conta> findAll(){
+        return contaRepository.findAll();
     }
 }

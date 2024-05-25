@@ -18,14 +18,13 @@ public class Conta {
     @Column(name = "numero_Conta", nullable = false, length = 10)
     private String numeroConta;
 
-    @Column(name = "tipo_cliente_id")
-    private Long tipoClienteID;
+    @Column(name = "tipo_cliente")
+    @Enumerated
+    private TipoCliente tipoCliente;
 
     @Column(name= "status_conta")
     private Boolean statusConta;
 
-
-    @JsonIgnore
     @JsonManagedReference
     @OneToOne
     @JoinColumn(name = "titular_id")
@@ -55,14 +54,6 @@ public class Conta {
         this.numeroConta = numeroConta;
     }
 
-    public Long getTipoClienteID() {
-        return tipoClienteID;
-    }
-
-    public void setTipoClienteID(Long tipoClienteID) {
-        this.tipoClienteID = tipoClienteID;
-    }
-
     public Boolean getStatusConta() {
         return statusConta;
     }
@@ -77,6 +68,14 @@ public class Conta {
 
     public void setTitular(Titular titular) {
         this.titular = titular;
+    }
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
     }
 
 

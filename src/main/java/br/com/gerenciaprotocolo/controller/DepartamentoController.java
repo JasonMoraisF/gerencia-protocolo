@@ -6,42 +6,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.gerenciaprotocolo.model.Departamento;
-import br.com.gerenciaprotocolo.repository.DepartamentoRepository;
-
+import br.com.gerenciaprotocolo.service.DepartamentoService;
+ 
 @RestController
 @RequestMapping("/api/departamentos")
 public class DepartamentoController {
 
     @Autowired
-    private DepartamentoRepository departamentoRepository;
+    private DepartamentoService departamentoService;
 
     @GetMapping
     public List<Departamento> getAllDepartamentos() {
-        return departamentoRepository.findAll();
+        return departamentoService.findAll();
     }
 
     @PostMapping
     public Departamento createDepartamento(@RequestBody Departamento departamento) {
-        return departamentoRepository.save(departamento);
+        return departamentoService.saveDepartamento(departamento);
     }
 
     @GetMapping("/{id}")
     public Departamento getDepartamentoById(@PathVariable Long id) {
-        return departamentoRepository.findById(id).orElse(null);
+        return departamentoService.findById(id);
     }
 
     @PutMapping("/{id}")
     public Departamento updateDepartamento(@PathVariable Long id, @RequestBody Departamento departamentoDetails) {
-        Departamento departamento = departamentoRepository.findById(id).orElse(null);
-        if (departamento != null) {
-           // departamento.setNome(departamentoDetails.getNome());
-            return departamentoRepository.save(departamento);
-        }
-        return null;
+        return departamentoService.updatedDepartamento(id, departamentoDetails);
     }
 
     @DeleteMapping("/{id}")
     public void deleteDepartamento(@PathVariable Long id) {
-        departamentoRepository.deleteById(id);
+        departamentoService.deleteByID(id);
     }
 }

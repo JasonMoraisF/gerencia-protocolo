@@ -1,29 +1,32 @@
 package br.com.gerenciaprotocolo.model;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum TipoCliente {
-    FISICO("fisico"),
-    JURIDICO("juridico");
-    
+public enum TipoTelefone {
+    RESIDENCIAL("Residencial"),
+    COMERCIAL("Comercial"),
+    CELULAR("Celular");
+
     private String descricao;
 
-    TipoCliente(String descricao){
+    TipoTelefone(String descricao){
         this.descricao = descricao;
     }
-    
+
     public String getDescricao(){
         return descricao;
     }
 
+
     @JsonCreator
-    public static TipoCliente fromDescricao(String descricao){
-        for(TipoCliente tipo : TipoCliente.values()){
+    public static TipoTelefone fromDescricao(String descricao){
+        for (TipoTelefone tipo : TipoTelefone.values()){
             if(tipo.getDescricao().equals(descricao)){
                 return tipo;
             }
         }
-        throw new IllegalArgumentException("Tipo do Cliente invalido: " + descricao);
+        throw new IllegalArgumentException("Tipo de telefone invalido: " + descricao);
     }
 
     @Override
@@ -31,4 +34,5 @@ public enum TipoCliente {
     public String toString(){
         return descricao;
     }
+
 }

@@ -3,44 +3,41 @@ package br.com.gerenciaprotocolo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.gerenciaprotocolo.model.Cliente;
-import br.com.gerenciaprotocolo.repository.ClienteRepository;
+import br.com.gerenciaprotocolo.service.ClienteService;
 
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
-
+ 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteService clienteService;
 
     @GetMapping
     public List<Cliente> getAllClientes() {
-        return clienteRepository.findAll();
+        return clienteService.findAll();
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Cliente createCliente(@RequestBody Cliente cliente) {
-        return clienteRepository.save(cliente);
+        return clienteService.saveCliente(cliente);
     }
-
+ 
     @GetMapping("/{id}")
     public Cliente getClienteById(@PathVariable Long id) {
-        return clienteRepository.findById(id).orElse(null);
+        return clienteService.findByCliente(id);
     }
 
     @PutMapping("/{id}")
     public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente clienteDetails) {
-        Cliente cliente = clienteRepository.findById(id).orElse(null);
-        if (cliente != null) {
-            return clienteRepository.save(cliente);
-        }
-        return null;
+        return clienteService.updateCliente(id, clienteDetails);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCliente(@PathVariable Long id) {
-        clienteRepository.deleteById(id);
+        clienteService.deleteCliente(id);
     }
 }

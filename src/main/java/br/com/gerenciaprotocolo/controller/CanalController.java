@@ -6,42 +6,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.gerenciaprotocolo.model.Canal;
-import br.com.gerenciaprotocolo.repository.CanalRepository;
+import br.com.gerenciaprotocolo.service.CanalService;
 
 @RestController
 @RequestMapping("/api/canais")
 public class CanalController {
 
     @Autowired
-    private CanalRepository canalRepository;
+    private CanalService canalService;
 
     @GetMapping
     public List<Canal> getAllCanais() {
-        return canalRepository.findAll();
+        return canalService.findAll();
     }
 
     @PostMapping
     public Canal createCanal(@RequestBody Canal canal) {
-        return canalRepository.save(canal);
+        return canalService.create(canal);
     }
 
     @GetMapping("/{id}")
     public Canal getCanalById(@PathVariable Long id) {
-        return canalRepository.findById(id).orElse(null);
+        return canalService.findById(id);
     }
 
     @PutMapping("/{id}")
     public Canal updateCanal(@PathVariable Long id, @RequestBody Canal canalDetails) {
-        Canal canal = canalRepository.findById(id).orElse(null);
-        if (canal != null) {
-            //canal.setTipoCanal(canalDetails.getTipoCanal());
-            return canalRepository.save(canal);
-        }
-        return null;
+        return canalService.update(id, canalDetails);
+    }
+
+    @PutMapping("/{idCanal}/{idProtocolo}")
+    public Canal removeProtocolo(@PathVariable Long idCanal, @PathVariable Long idProtocolo) {
+        return canalService.removeProtocolo(idCanal, idProtocolo);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCanal(@PathVariable Long id) {
-        canalRepository.deleteById(id);
+        canalService.delete(id);
     }
 }

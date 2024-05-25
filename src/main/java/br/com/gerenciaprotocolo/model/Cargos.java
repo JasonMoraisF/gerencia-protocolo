@@ -19,8 +19,8 @@ public class Cargos {
     @Column(name = "tipo_cargos", nullable = false, length = 30)
     private String TipoCargos;
 
-    @JsonManagedReference
     @JsonIgnore
+    @JsonManagedReference
     @OneToMany(mappedBy = "cargos")
     private List<Funcionario> funcionarios;
 
@@ -47,7 +47,5 @@ public class Cargos {
     public void setFuncionarios(List<Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
     }
-
-    
 
 }

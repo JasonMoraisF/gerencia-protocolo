@@ -14,19 +14,58 @@ public class SituacaoProtocolo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "situacaoProtocolo_id")
     private Long situacaoProtocoloID;
-
-    @Column(name = "resposta", nullable = false, length = 50)
+    
+    @Column(name = "resposta", nullable = false, length = 500)
     private String resposta;
 
     @Column(name = "status", nullable = false, length = 50)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusProtocolo status;
 
+    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "situacaoProtocolo")
     private List<Funcionario> funcionarios;
 
+    @JsonIgnore
     @JsonManagedReference
-    @OneToOne(mappedBy = "situacaoProtocolo")
-    private Protocolo protocolo;
+    @OneToMany(mappedBy = "situacaoProtocolo")
+    private List<Protocolo> protocolos;
+
+    public String getResposta() {
+        return resposta;
+    }
+
+    public void setResposta(String resposta) {
+        this.resposta = resposta;
+    }
+
+    public StatusProtocolo getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusProtocolo status) {
+        this.status = status;
+    }
+
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public List<Protocolo> getProtocolos() {
+        return protocolos;
+    }
+
+    public void setProtocolos(List<Protocolo> protocolos) {
+        this.protocolos = protocolos;
+    }
+
+    public Long getSituacaoProtocoloID() {
+        return situacaoProtocoloID;
+    }
 
 }
