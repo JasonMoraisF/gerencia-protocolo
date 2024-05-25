@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import br.com.gerenciaprotocolo.model.Protocolo;
 import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
+import br.com.gerenciaprotocolo.service.ProtocoloService;
 
 import java.util.List;
 
@@ -13,34 +14,30 @@ import java.util.List;
 public class ProtocoloController {
 
     @Autowired
-    private ProtocoloRepository protocoloRepository;
+    private ProtocoloService protocoloService;
 
     @GetMapping
     public List<Protocolo> getAllProtocolos() {
-        return protocoloRepository.findAll();
+        return protocoloService.findAll();
     }
 
     @PostMapping
     public Protocolo createProtocolo(@RequestBody Protocolo protocolo) {
-        return protocoloRepository.save(protocolo);
+        return protocoloService.createProtocolo(protocolo);
     }
 
     @GetMapping("/{id}")
     public Protocolo getProtocoloById(@PathVariable Long id) {
-        return protocoloRepository.findById(id).orElse(null);
+        return protocoloService.findByProtocolo(id);
     }
 
     @PutMapping("/{id}")
     public Protocolo updateProtocolo(@PathVariable Long id, @RequestBody Protocolo protocoloDetails) {
-        Protocolo protocolo = protocoloRepository.findById(id).orElse(null);
-        if (protocolo != null) {
-            return protocoloRepository.save(protocolo);
-        }
-        return null;
+        return protocoloService.updateProtocolo(id, protocoloDetails);
     }
 
     @DeleteMapping("/{id}")
     public void deleteProtocolo(@PathVariable Long id) {
-        protocoloRepository.deleteById(id);
+        protocoloService.deleteProtocolo(id);
     }
 }
