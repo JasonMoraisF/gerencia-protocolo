@@ -1,8 +1,6 @@
 package br.com.gerenciaprotocolo.service;
 
-import br.com.gerenciaprotocolo.model.Conta;
 import br.com.gerenciaprotocolo.model.Funcionario;
-import br.com.gerenciaprotocolo.repository.ContaRepository;
 import br.com.gerenciaprotocolo.repository.FuncionarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
