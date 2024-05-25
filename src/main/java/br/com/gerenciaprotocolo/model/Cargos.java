@@ -48,5 +48,4 @@ public class Cargos {
         this.funcionarios = funcionarios;
     }
 
-    
 }
