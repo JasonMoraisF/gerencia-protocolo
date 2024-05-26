@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciaprotocolo.model.Canal;
-import br.com.gerenciaprotocolo.model.Departamento;
 import br.com.gerenciaprotocolo.model.Protocolo;
 import br.com.gerenciaprotocolo.repository.CanalRepository;
 import br.com.gerenciaprotocolo.repository.ClienteRepository;
-import br.com.gerenciaprotocolo.repository.DepartamentoRepository;
 import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -24,9 +22,6 @@ public class ProtocoloService {
 
     @Autowired
     private CanalRepository canalRepository;
-
-    @Autowired DepartamentoRepository departamentoRepository;
-
 
     public Protocolo createProtocolo(Protocolo protocolo){
         if(protocolo.getDataAbertura() == null){
@@ -60,9 +55,7 @@ public class ProtocoloService {
             existingProtocolo.setDataRecebimento(LocalDateTime.now());
         }
 
-        Departamento novoDepartamento = departamentoRepository.findByNome(updatedProtocolo.getDepartamento().getNome()).orElseThrow(() -> new EntityNotFoundException("Departamento com nome " + updatedProtocolo.getDepartamento().getNome() + " não encontrado")); 
-
-        existingProtocolo.setDepartamento(novoDepartamento);
+        existingProtocolo.setDepartamento(updatedProtocolo.getDepartamento());
         existingProtocolo.setAgilizar(updatedProtocolo.getAgilizar());
         existingProtocolo.setPropensaoBacen(updatedProtocolo.getPropensaoBacen());
         existingProtocolo.setDevido(updatedProtocolo.getDevido());

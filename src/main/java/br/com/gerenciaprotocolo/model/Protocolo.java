@@ -30,13 +30,12 @@ public class Protocolo {
     private Long protocoloID;
     
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "canal_id", nullable = false)
     private Canal canal;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "departamento_id", nullable = true)
-    private Departamento departamento;
+    @Column(name = "departamento", nullable = true)
+    private Departamentos departamento;
 
     @JsonIgnore
     @JsonManagedReference
@@ -167,11 +166,11 @@ public class Protocolo {
         this.tipoProtocolo = tipoProtocolo;
     }
     
-    public Departamento getDepartamento() {
+    public Departamentos getDepartamento() {
         return departamento;
     }
     
-    public void setDepartamento(Departamento departamento) {
+    public void setDepartamento(Departamentos departamento) {
         this.departamento = departamento;
     }
     

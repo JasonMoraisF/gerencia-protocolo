@@ -26,17 +26,13 @@ public class Funcionario {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @JsonIgnore
-    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name = "departamento_id", referencedColumnName = "departamento_id")
-    private Departamento departamento;
+    @Column(name = "departamento_id", nullable = false)
+    @Enumerated
+    private Departamentos departamentos;
 
-    @JsonIgnore
-    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name = "cargos_id", referencedColumnName = "cargos_id")
-    private Cargos cargos;
+    @Column(name = "cargo", nullable = false)
+    @Enumerated
+    private TipoCargo cargo;
 
     @JsonIgnore
     @JsonManagedReference
@@ -92,20 +88,20 @@ public class Funcionario {
         this.email = email;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
+    public Departamentos getDepartamentos() {
+        return departamentos;
     }
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+    public void setDepartamentos(Departamentos departamento) {
+        this.departamentos = departamento;
     }
 
-    public Cargos getCargos() {
-        return cargos;
+    public TipoCargo getCargo() {
+        return cargo;
     }
 
-    public void setCargos(Cargos cargos) {
-        this.cargos = cargos;
+    public void setCargo(TipoCargo cargo) {
+        this.cargo = cargo;
     }
 
     public SituacaoProtocolo getSituacaoProtocolo() {

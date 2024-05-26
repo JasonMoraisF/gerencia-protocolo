@@ -25,8 +25,8 @@ public class FuncionarioService {
         // Atualizando os campos do funcionário existente com os novos valores
         existingFuncionario.setNome(updatedFuncionario.getNome());
         existingFuncionario.setEmail(updatedFuncionario.getEmail());
-        existingFuncionario.setDepartamento(updatedFuncionario.getDepartamento());
-        existingFuncionario.setCargos(updatedFuncionario.getCargos());
+        existingFuncionario.setDepartamentos(updatedFuncionario.getDepartamentos());
+        existingFuncionario.setCargo(updatedFuncionario.getCargo());
 
         return funcionarioRepository.save(existingFuncionario);
     }
