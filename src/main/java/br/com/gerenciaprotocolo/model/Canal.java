@@ -21,7 +21,7 @@ public class Canal {
     @JsonIgnore
     @OneToMany(mappedBy = "canal")
     private List<Protocolo> protocolos;
-
+    
     public Long getCanalID() {
         return canalID;
     }

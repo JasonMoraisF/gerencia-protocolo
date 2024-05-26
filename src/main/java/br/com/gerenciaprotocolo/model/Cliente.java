@@ -3,7 +3,6 @@ package br.com.gerenciaprotocolo.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -15,6 +14,10 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cliente_id")
     private Long clienteID;
+    
+    @JsonBackReference
+    @OneToOne(mappedBy = "clienteId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Protocolo protocolo;
 
     @Column(name = "nome", nullable = true, length = 100)
     private String nome;
@@ -32,10 +35,6 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Telefone> telefones;
 
-    @JsonIgnore
-    @JsonBackReference
-    @OneToOne(mappedBy = "cliente")
-    private Protocolo protocolo;
 
     public void setClienteID(Long clienteID) {
         this.clienteID = clienteID;
