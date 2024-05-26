@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
@@ -37,11 +36,10 @@ public class Protocolo {
     @Column(name = "departamento", nullable = true)
     private Departamentos departamento;
 
-    @JsonIgnore
     @JsonManagedReference
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = true)
-    private Cliente clienteId;
+    private Cliente cliente;
 
     @Column(name = "tipo_protocolo", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
@@ -62,7 +60,7 @@ public class Protocolo {
     protected void onCreate(){
         this.dataAbertura = LocalDateTime.now();
     }
-    
+     
     @Column(name = "data_Prazo")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataPrazo;
@@ -231,11 +229,11 @@ public class Protocolo {
     }
 
     public Cliente getClienteId() {
-        return clienteId;
+        return cliente;
     }
 
     public void setClienteId(Cliente cliente) {
-        this.clienteId = cliente;
+        this.cliente = cliente;
     }
 
     

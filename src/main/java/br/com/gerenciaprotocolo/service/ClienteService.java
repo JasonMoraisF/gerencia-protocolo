@@ -29,11 +29,11 @@ public class ClienteService {
         savedCliente = clienteRepository.save(cliente);
         Protocolo protocolo = savedCliente.getProtocolo();
 
-        if(protocolo.getDataPrazo()== null){
-            protocolo.calcularDataPrazo(protocolo);
-            protocolo = protocoloRepository.save(protocolo);
+        // if(protocolo.getDataPrazo()== null){
+        //     protocolo.calcularDataPrazo(protocolo);
+        //     protocolo = protocoloRepository.save(protocolo);
 
-        }
+        // }
         if(savedCliente.getTelefones() != null &&!savedCliente.getTelefones().isEmpty()){
             savedCliente.getTelefones().forEach(telefone ->{
                 telefone.setCliente(savedCliente);

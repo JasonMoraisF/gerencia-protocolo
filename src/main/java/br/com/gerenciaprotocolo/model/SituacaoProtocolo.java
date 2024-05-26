@@ -27,10 +27,9 @@ public class SituacaoProtocolo {
     @OneToMany(mappedBy = "situacaoProtocolo")
     private List<Funcionario> funcionarios;
 
-    @JsonIgnore
-    @JsonManagedReference
-    @OneToMany(mappedBy = "situacaoProtocolo")
-    private List<Protocolo> protocolos;
+    @JsonBackReference
+    @OneToOne(mappedBy = "situacaoProtocolo")
+    private Protocolo protocolos;
 
     public String getResposta() {
         return resposta;
@@ -56,11 +55,11 @@ public class SituacaoProtocolo {
         this.funcionarios = funcionarios;
     }
 
-    public List<Protocolo> getProtocolos() {
+    public Protocolo getProtocolos() {
         return protocolos;
     }
 
-    public void setProtocolos(List<Protocolo> protocolos) {
+    public void setProtocolos(Protocolo protocolos) {
         this.protocolos = protocolos;
     }
 

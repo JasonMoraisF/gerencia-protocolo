@@ -1,5 +1,6 @@
 package br.com.gerenciaprotocolo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 //import com.fasterxml.jackson.annotation.JsonBackReference; (não ta sendo usado)
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -35,7 +36,7 @@ public class Funcionario {
     private TipoCargo cargo;
 
     @JsonIgnore
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "situacaoProtocolo_id", referencedColumnName = "situacaoProtocolo_id")
     private SituacaoProtocolo situacaoProtocolo;

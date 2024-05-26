@@ -16,7 +16,8 @@ public class Cliente {
     private Long clienteID;
     
     @JsonBackReference
-    @OneToOne(mappedBy = "clienteId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    @JoinColumn(name = "protocolo_id", nullable = true)
     private Protocolo protocolo;
 
     @Column(name = "nome", nullable = true, length = 100)

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciaprotocolo.model.Canal;
+import br.com.gerenciaprotocolo.model.Cliente;
 import br.com.gerenciaprotocolo.model.Protocolo;
 import br.com.gerenciaprotocolo.repository.CanalRepository;
 import br.com.gerenciaprotocolo.repository.ClienteRepository;
@@ -23,12 +24,17 @@ public class ProtocoloService {
     @Autowired
     private CanalRepository canalRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     public Protocolo createProtocolo(Protocolo protocolo){
         if(protocolo.getDataAbertura() == null){
             protocolo.setDataAbertura(LocalDateTime.now());
             protocolo.calcularDataPrazo(protocolo);
         }
+        Cliente cliente = clienteRepository.save(protocolo.getClienteId());
         Canal novoCanal = canalRepository.findByTipoCanal(protocolo.getCanal().getTipoCanal()).orElseThrow(() -> new EntityNotFoundException("Canal com nome " + protocolo.getCanal().getTipoCanal() + " não encontrado")); 
+        protocolo.setClienteId(cliente);
         protocolo.setCanal(novoCanal);
         protocolo.setAgilizar(null);
         protocolo.setPropensaoBacen(null);
