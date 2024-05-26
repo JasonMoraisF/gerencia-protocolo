@@ -23,8 +23,7 @@ public class Departamento {
   @OneToMany(mappedBy = "departamento")
   private List<Funcionario> funcionarios;
 
-  @JsonIgnore
-  @JsonBackReference
+  @JsonManagedReference
   @OneToMany(mappedBy = "departamento")
   private List<Protocolo> protocolos;
 

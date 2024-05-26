@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciaprotocolo.model.Canal;
+import br.com.gerenciaprotocolo.model.Departamento;
 import br.com.gerenciaprotocolo.model.Protocolo;
 import br.com.gerenciaprotocolo.repository.CanalRepository;
 import br.com.gerenciaprotocolo.repository.ClienteRepository;
+import br.com.gerenciaprotocolo.repository.DepartamentoRepository;
 import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -22,6 +24,8 @@ public class ProtocoloService {
 
     @Autowired
     private CanalRepository canalRepository;
+
+    @Autowired DepartamentoRepository departamentoRepository;
 
 
     public Protocolo createProtocolo(Protocolo protocolo){
@@ -37,12 +41,6 @@ public class ProtocoloService {
         protocolo.setSituacaoProtocolo(null);
         protocolo.setDepartamento(null);
 
-
-        // Optional<Canal> canalOptional = canalRepository.findByTipoCanal(protocolo.getCanal().getTipoCanal());
-        // if(!canalOptional.isPresent()){
-        //     throw new IllegalArgumentException("Canal com tipo '" + protocolo.getCanal().getTipoCanal() + "' não encontrado");
-        // }
-        // protocolo.setCanal(canalOptional.get());
             return protocoloRepository.save(protocolo);
     }
 
@@ -60,7 +58,10 @@ public class ProtocoloService {
         if(updatedProtocolo.getDataRecebimento()==null){
             existingProtocolo.setDataRecebimento(LocalDateTime.now());
         }
-        existingProtocolo.setDepartamento(updatedProtocolo.getDepartamento());
+
+        Departamento novoDepartamento = departamentoRepository.findByNome(updatedProtocolo.getDepartamento().getNome()).orElseThrow(() -> new EntityNotFoundException("Departamento com nome " + updatedProtocolo.getDepartamento().getNome() + " não encontrado")); 
+
+        existingProtocolo.setDepartamento(novoDepartamento);
         existingProtocolo.setAgilizar(updatedProtocolo.getAgilizar());
         existingProtocolo.setPropensaoBacen(updatedProtocolo.getPropensaoBacen());
         existingProtocolo.setDevido(updatedProtocolo.getDevido());

@@ -68,8 +68,7 @@ public class Protocolo {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataRecebimento;
 
-    @JsonIgnore
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "departamento_id", nullable = true)
     private Departamento departamento;
@@ -80,7 +79,6 @@ public class Protocolo {
     @Column(name = "devido")
     private Boolean devido;
     
-    @JsonIgnore
     @Column(name = "procedente")
     private Boolean procedente;
     
