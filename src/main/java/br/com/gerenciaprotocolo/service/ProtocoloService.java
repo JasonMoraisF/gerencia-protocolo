@@ -33,6 +33,8 @@ public class ProtocoloService {
             protocolo.setDataAbertura(LocalDateTime.now());
             protocolo.calcularDataPrazo(protocolo);
         }
+        Canal novoCanal = canalRepository.findByTipoCanal(protocolo.getCanal().getTipoCanal()).orElseThrow(() -> new EntityNotFoundException("Canal com nome " + protocolo.getCanal().getTipoCanal() + " não encontrado")); 
+        protocolo.setCanal(novoCanal);
         protocolo.setAgilizar(null);
         protocolo.setPropensaoBacen(null);
         protocolo.setDevido(null);
@@ -40,7 +42,6 @@ public class ProtocoloService {
         protocolo.setDataRecebimento(null);
         protocolo.setSituacaoProtocolo(null);
         protocolo.setDepartamento(null);
-
             return protocoloRepository.save(protocolo);
     }
 

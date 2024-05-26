@@ -8,27 +8,35 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Protocolo")
 @EntityListeners(AuditingEntityListener.class)
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "protocoloID")
 public class Protocolo {
-    
+        
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "protocolo_id")
     private Long protocoloID;
     
+    @ManyToOne
+    @JoinColumn(name = "canal_id", nullable = false)
+    private Canal canal;
 
-    @JsonIgnore
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "canal_id", nullable = true)
-    private Canal canal;
+    @JoinColumn(name = "departamento_id", nullable = true)
+    private Departamento departamento;
 
     @JsonIgnore
     @JsonManagedReference
@@ -68,10 +76,6 @@ public class Protocolo {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataRecebimento;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "departamento_id", nullable = true)
-    private Departamento departamento;
     
     @Column(name = "propensao_Bacen")
     private Boolean propensaoBacen;
@@ -87,6 +91,10 @@ public class Protocolo {
     @OneToOne
     @JoinColumn(name = "situacaoProtocolo_id")
     private SituacaoProtocolo situacaoProtocolo;
+
+    public interface PublicView {}
+    public interface PrivateView {}
+
 
     public void calcularDataPrazo(Protocolo protocolo){
         switch(protocolo.getTipoProtocolo()){

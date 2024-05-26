@@ -18,14 +18,14 @@ public class Departamento {
   @Column(name = "nome", nullable = false, length = 50)
   private String nome;
   
+  @JsonManagedReference
+  @OneToMany(mappedBy = "departamento")
+  private List<Protocolo> protocolos;
+  
   @JsonIgnore
   @JsonManagedReference
   @OneToMany(mappedBy = "departamento")
   private List<Funcionario> funcionarios;
-
-  @JsonManagedReference
-  @OneToMany(mappedBy = "departamento")
-  private List<Protocolo> protocolos;
 
 
   public Long getDepartamentoID() {
