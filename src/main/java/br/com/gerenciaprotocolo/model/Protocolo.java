@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -22,9 +23,12 @@ public class Protocolo {
     @Column(name = "protocolo_id")
     private Long protocoloID;
     
-    @Column(name = "nome", nullable = false, length = 50)
-    private String nome;
-    
+    @JsonIgnore
+    @JsonManagedReference
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id", nullable = true)
+    private Cliente clienteId;
+
     @Column(name = "tipo_protocolo", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private TipoProtocolo tipoProtocolo;
@@ -49,18 +53,6 @@ public class Protocolo {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataPrazo;
 
-    @JsonIgnore //Por enquanto
-    @JsonManagedReference
-    @OneToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
-    @JsonIgnore//POr enquanto
-    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name = "canal_id")
-    private Canal canal;
-    
     @JsonIgnore
     @Column(name = "data_UltimaAcao")
     private Date dataUltimaAcao;
@@ -68,6 +60,12 @@ public class Protocolo {
     @JsonIgnore
     @Column(name = "data_Recebimento")
     private Date dataRecebimento;
+
+    @JsonIgnore//POr enquanto
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "canal_id")
+    private Canal canal;
     
     @JsonIgnore
     @JsonManagedReference
@@ -156,14 +154,6 @@ public class Protocolo {
         this.dataRecebimento = dataRecebimento;
     }
     
-    public String getNome() {
-        return nome;
-    }
-    
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
     public TipoProtocolo getTipoProtocolo() {
         return tipoProtocolo;
     }
@@ -236,12 +226,12 @@ public class Protocolo {
         this.canal = canal;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Cliente getClienteId() {
+        return clienteId;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setClienteId(Cliente cliente) {
+        this.clienteId = cliente;
     }
 
     

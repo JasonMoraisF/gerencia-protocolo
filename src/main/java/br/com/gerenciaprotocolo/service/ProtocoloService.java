@@ -1,6 +1,5 @@
 package br.com.gerenciaprotocolo.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciaprotocolo.model.Protocolo;
+import br.com.gerenciaprotocolo.repository.ClienteRepository;
 import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -16,6 +16,7 @@ public class ProtocoloService {
     
     @Autowired
     private ProtocoloRepository protocoloRepository;
+
 
     public Protocolo createProtocolo(Protocolo protocolo){
         if(protocolo.getDataAbertura() == null){
