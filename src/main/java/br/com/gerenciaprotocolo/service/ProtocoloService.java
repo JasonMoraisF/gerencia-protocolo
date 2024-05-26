@@ -2,11 +2,14 @@ package br.com.gerenciaprotocolo.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.gerenciaprotocolo.model.Canal;
 import br.com.gerenciaprotocolo.model.Protocolo;
+import br.com.gerenciaprotocolo.repository.CanalRepository;
 import br.com.gerenciaprotocolo.repository.ClienteRepository;
 import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,12 +20,29 @@ public class ProtocoloService {
     @Autowired
     private ProtocoloRepository protocoloRepository;
 
+    @Autowired
+    private CanalRepository canalRepository;
+
 
     public Protocolo createProtocolo(Protocolo protocolo){
         if(protocolo.getDataAbertura() == null){
             protocolo.setDataAbertura(LocalDateTime.now());
             protocolo.calcularDataPrazo(protocolo);
         }
+        protocolo.setAgilizar(null);
+        protocolo.setPropensaoBacen(null);
+        protocolo.setDevido(null);
+        protocolo.setDataUltimaAcao(null);
+        protocolo.setDataRecebimento(null);
+        protocolo.setSituacaoProtocolo(null);
+        protocolo.setDepartamento(null);
+
+
+        // Optional<Canal> canalOptional = canalRepository.findByTipoCanal(protocolo.getCanal().getTipoCanal());
+        // if(!canalOptional.isPresent()){
+        //     throw new IllegalArgumentException("Canal com tipo '" + protocolo.getCanal().getTipoCanal() + "' não encontrado");
+        // }
+        // protocolo.setCanal(canalOptional.get());
             return protocoloRepository.save(protocolo);
     }
 
@@ -36,12 +56,13 @@ public class ProtocoloService {
 
     public Protocolo updateProtocolo(Long id, Protocolo updatedProtocolo){
         Protocolo existingProtocolo = protocoloRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Protocolo inexistente: " + id));
-
-
-        //FALTANDO DATES
+        existingProtocolo.setDataUltimaAcao(LocalDateTime.now());
+        if(updatedProtocolo.getDataRecebimento()==null){
+            existingProtocolo.setDataRecebimento(LocalDateTime.now());
+        }
         existingProtocolo.setDepartamento(updatedProtocolo.getDepartamento());
         existingProtocolo.setAgilizar(updatedProtocolo.getAgilizar());
-        existingProtocolo.setPropensãoBacen(updatedProtocolo.getPropensãoBacen());
+        existingProtocolo.setPropensaoBacen(updatedProtocolo.getPropensaoBacen());
         existingProtocolo.setDevido(updatedProtocolo.getDevido());
         existingProtocolo.setProcedente(updatedProtocolo.getProcedente());
         existingProtocolo.setSituacaoProtocolo(updatedProtocolo.getSituacaoProtocolo());

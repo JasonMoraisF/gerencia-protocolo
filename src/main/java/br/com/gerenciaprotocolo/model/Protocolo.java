@@ -23,6 +23,13 @@ public class Protocolo {
     @Column(name = "protocolo_id")
     private Long protocoloID;
     
+
+    @JsonIgnore
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "canal_id", nullable = true)
+    private Canal canal;
+
     @JsonIgnore
     @JsonManagedReference
     @OneToOne(fetch = FetchType.LAZY)
@@ -36,7 +43,7 @@ public class Protocolo {
     @Column(name = "descricao", nullable = false)
     private String descricao;
     
-    @Column(name = "agilizar")
+    @Column(name = "agilizar", nullable = true)
     private Boolean agilizar;
     
     @Column(name = "data_Abertura", nullable = false)
@@ -53,31 +60,23 @@ public class Protocolo {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataPrazo;
 
-    @JsonIgnore
     @Column(name = "data_UltimaAcao")
-    private Date dataUltimaAcao;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataUltimaAcao;
 
-    @JsonIgnore
     @Column(name = "data_Recebimento")
-    private Date dataRecebimento;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataRecebimento;
 
-    @JsonIgnore//POr enquanto
-    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name = "canal_id")
-    private Canal canal;
-    
     @JsonIgnore
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "departamento_id", nullable = true)
     private Departamento departamento;
     
-    @JsonIgnore
-    @Column(name = "propensão_Bacen")
-    private Boolean propensãoBacen;
+    @Column(name = "propensao_Bacen")
+    private Boolean propensaoBacen;
     
-    @JsonIgnore
     @Column(name = "devido")
     private Boolean devido;
     
@@ -138,19 +137,19 @@ public class Protocolo {
         this.dataPrazo = dataPrazo;
     }
     
-    public Date getDataUltimaAcao() {
+    public LocalDateTime getDataUltimaAcao() {
         return dataUltimaAcao;
     }
     
-    public void setDataUltimaAcao(Date dataUltimaAcao) {
+    public void setDataUltimaAcao(LocalDateTime dataUltimaAcao) {
         this.dataUltimaAcao = dataUltimaAcao;
     }
     
-    public Date getDataRecebimento() {
+    public LocalDateTime getDataRecebimento() {
         return dataRecebimento;
     }
     
-    public void setDataRecebimento(Date dataRecebimento) {
+    public void setDataRecebimento(LocalDateTime dataRecebimento) {
         this.dataRecebimento = dataRecebimento;
     }
     
@@ -170,12 +169,12 @@ public class Protocolo {
         this.departamento = departamento;
     }
     
-    public Boolean getPropensãoBacen() {
-        return propensãoBacen;
+    public Boolean getPropensaoBacen() {
+        return propensaoBacen;
     }
     
-    public void setPropensãoBacen(Boolean propensãoBacen) {
-        this.propensãoBacen = propensãoBacen;
+    public void setPropensaoBacen(Boolean propensãoBacen) {
+        this.propensaoBacen = propensãoBacen;
     }
     
     public Boolean getAgilizar() {
