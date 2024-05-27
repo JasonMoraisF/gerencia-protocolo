@@ -37,7 +37,7 @@ public class Protocolo {
     private Departamentos departamento;
 
     @JsonManagedReference
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
 
