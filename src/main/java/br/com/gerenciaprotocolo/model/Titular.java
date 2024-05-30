@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 
@@ -28,8 +29,8 @@ public class Titular {
     @Column(name = "profissao", nullable = false, length = 50)
     private String Profissao;
 
-    @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Telefone> telefones = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Telefone> telefones;
 
     @JsonBackReference
     @OneToOne(mappedBy = "titular")

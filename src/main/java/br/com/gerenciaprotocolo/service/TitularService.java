@@ -41,7 +41,6 @@ public class TitularService {
     public Titular updateTitular(Long titularID, Titular updatedTitular){
         Titular existingTitular = titularRepository.findById(titularID).orElseThrow(() -> new EntityNotFoundException("Titular não encontrado com o ID: " + titularID));
 
-        // existingTitular.setTitularID(updatedTitular.getTitularID());
         existingTitular.setCpf(updatedTitular.getCpf());
         existingTitular.setNome(updatedTitular.getNome());
         existingTitular.setEmail(updatedTitular.getEmail());

@@ -21,9 +21,6 @@ public class ClienteService {
     @Autowired
     private TelefoneRepository telefoneRepository;
 
-    @Autowired
-    private ProtocoloRepository protocoloRepository;
-
     public Cliente saveCliente(Cliente cliente){
         Cliente savedCliente;
         savedCliente = clienteRepository.save(cliente);
