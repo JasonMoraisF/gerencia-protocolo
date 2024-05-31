@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import br.com.gerenciaprotocolo.model.Canal;
 import br.com.gerenciaprotocolo.model.Cliente;
 import br.com.gerenciaprotocolo.model.Protocolo;
+import br.com.gerenciaprotocolo.model.SituacaoProtocolo;
 import br.com.gerenciaprotocolo.repository.CanalRepository;
 import br.com.gerenciaprotocolo.repository.ClienteRepository;
 import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
+import br.com.gerenciaprotocolo.repository.SituacaoProtocoloRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -25,6 +27,9 @@ public class ProtocoloService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private SituacaoProtocoloRepository situacaoProtocoloRepository;
 
     public Protocolo createProtocolo(Protocolo protocolo){
         if(protocolo.getDataAbertura() == null){
@@ -56,16 +61,21 @@ public class ProtocoloService {
     public Protocolo updateProtocolo(Long id, Protocolo updatedProtocolo){
         Protocolo existingProtocolo = protocoloRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Protocolo inexistente: " + id));
         existingProtocolo.setDataUltimaAcao(LocalDateTime.now());
+
+        SituacaoProtocolo situacaoProtocolo = situacaoProtocoloRepository.save(updatedProtocolo.getSituacaoProtocolo());
+        situacaoProtocolo = situacaoProtocoloRepository.save(situacaoProtocolo);
+        
+        
         if(updatedProtocolo.getDataRecebimento()==null){
             existingProtocolo.setDataRecebimento(LocalDateTime.now());
         }
-
+        
+        existingProtocolo.setSituacaoProtocolo(situacaoProtocolo);
         existingProtocolo.setDepartamento(updatedProtocolo.getDepartamento());
         existingProtocolo.setAgilizar(updatedProtocolo.getAgilizar());
         existingProtocolo.setPropensaoBacen(updatedProtocolo.getPropensaoBacen());
         existingProtocolo.setDevido(updatedProtocolo.getDevido());
         existingProtocolo.setProcedente(updatedProtocolo.getProcedente());
-        existingProtocolo.setSituacaoProtocolo(updatedProtocolo.getSituacaoProtocolo());
         return protocoloRepository.save(existingProtocolo);
     }
 

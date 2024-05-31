@@ -21,7 +21,7 @@ import jakarta.persistence.*;
 @JsonIdentityInfo(
     generator = ObjectIdGenerators.PropertyGenerator.class,
     property = "protocoloID")
-public class Protocolo {
+    public class Protocolo {
         
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,14 +32,17 @@ public class Protocolo {
     @JsonBackReference
     @JoinColumn(name = "canal_id", nullable = false)
     private Canal canal;
-
-    @Column(name = "departamento", nullable = true)
-    private Departamentos departamento;
-
+    
     @JsonManagedReference
     @OneToOne
     @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
+    
+    @Column(name = "departamento", nullable = true)
+    private Departamentos departamento;
+    
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private SituacaoProtocolo situacaoProtocolo;
 
     @Column(name = "tipo_protocolo", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
@@ -83,11 +86,6 @@ public class Protocolo {
     @Column(name = "procedente")
     private Boolean procedente;
     
-    @JsonIgnore
-    @JsonManagedReference
-    @OneToOne
-    @JoinColumn(name = "situacaoProtocolo_id")
-    private SituacaoProtocolo situacaoProtocolo;
 
     public interface PublicView {}
     public interface PrivateView {}
