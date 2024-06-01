@@ -28,8 +28,8 @@ public class SituacaoProtocoloController {
     }
 
     @PostMapping
-    public SituacaoProtocolo createSituacaoProtocolo(@RequestBody SituacaoProtocolo situacaoProtocolo){
-        return situacaoProtocoloService.saveSituacaoProtocolo(situacaoProtocolo);
+    public SituacaoProtocolo createSituacaoProtocolo(@RequestBody SituacaoProtocolo situacaoProtocolo, @PathVariable Long id){
+        return situacaoProtocoloService.saveSituacaoProtocolo(situacaoProtocolo,id);
     }
 
     @GetMapping("/{id}")

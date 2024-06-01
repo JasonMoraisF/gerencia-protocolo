@@ -1,10 +1,12 @@
 package br.com.gerenciaprotocolo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.gerenciaprotocolo.model.Funcionario;
 import br.com.gerenciaprotocolo.model.SituacaoProtocolo;
 import br.com.gerenciaprotocolo.repository.SituacaoProtocoloRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,12 +19,14 @@ public class SituacaoProtocoloService {
     @Autowired 
     private FuncionarioService funcionarioService;
 
-    public SituacaoProtocolo saveSituacaoProtocolo(SituacaoProtocolo situacaoProtocolo){
-        SituacaoProtocolo savedSituacaoProtocolo = situacaoProtocoloRepository.save(situacaoProtocolo);
+    public SituacaoProtocolo saveSituacaoProtocolo(SituacaoProtocolo situacaoProtocolo ,long idFuncionario){
+        SituacaoProtocolo savedSituacaoProtocolo = situacaoProtocolo;
         if (savedSituacaoProtocolo.getFuncionarios() != null && !situacaoProtocolo.getFuncionarios().isEmpty()) {
-            funcionarioService.saveFuncionario(savedSituacaoProtocolo.getFuncionarios().get(0));
+            List<Funcionario>funcionario = new ArrayList<>();
+            funcionario.add(funcionarioService.findById(idFuncionario));
+            savedSituacaoProtocolo.setFuncionarios(funcionario);
         }
-        return situacaoProtocolo;
+        return situacaoProtocoloRepository.save(savedSituacaoProtocolo);
     }
 
     public SituacaoProtocolo updateSituacaoProtocolo(Long situacaoProtocoloId, SituacaoProtocolo updatedSituacaoProtocolo){

@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciaprotocolo.model.Cliente;
-import br.com.gerenciaprotocolo.model.Protocolo;
 import br.com.gerenciaprotocolo.repository.ClienteRepository;
-import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
 import br.com.gerenciaprotocolo.repository.TelefoneRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -24,7 +22,6 @@ public class ClienteService {
     public Cliente saveCliente(Cliente cliente){
         Cliente savedCliente;
         savedCliente = clienteRepository.save(cliente);
-        Protocolo protocolo = savedCliente.getProtocolo();
 
         // if(protocolo.getDataPrazo()== null){
         //     protocolo.calcularDataPrazo(protocolo);
