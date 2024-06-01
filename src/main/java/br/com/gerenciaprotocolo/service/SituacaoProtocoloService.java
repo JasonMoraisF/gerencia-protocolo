@@ -14,10 +14,15 @@ public class SituacaoProtocoloService {
     
     @Autowired
     private SituacaoProtocoloRepository situacaoProtocoloRepository;
-
+    @Autowired 
+    private FuncionarioService funcionarioService;
 
     public SituacaoProtocolo saveSituacaoProtocolo(SituacaoProtocolo situacaoProtocolo){
-        return situacaoProtocoloRepository.save(situacaoProtocolo);
+        SituacaoProtocolo savedSituacaoProtocolo = situacaoProtocoloRepository.save(situacaoProtocolo);
+        if (savedSituacaoProtocolo.getFuncionarios() != null && !situacaoProtocolo.getFuncionarios().isEmpty()) {
+            funcionarioService.saveFuncionario(savedSituacaoProtocolo.getFuncionarios().get(0));
+        }
+        return situacaoProtocolo;
     }
 
     public SituacaoProtocolo updateSituacaoProtocolo(Long situacaoProtocoloId, SituacaoProtocolo updatedSituacaoProtocolo){

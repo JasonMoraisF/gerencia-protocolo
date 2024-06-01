@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.gerenciaprotocolo.model.Protocolo;
-import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
 import br.com.gerenciaprotocolo.service.ProtocoloService;
 
 import java.util.List;
