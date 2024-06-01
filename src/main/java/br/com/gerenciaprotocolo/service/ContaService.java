@@ -12,11 +12,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContaService {
 
-  @Autowired  
+    @Autowired  
     private ContaRepository contaRepository;
+    @Autowired
+    private TitularService titularService;
 
     public Conta saveConta(Conta conta) {
-        return contaRepository.save(conta);
+        Conta savedConta = contaRepository.save(conta);
+        if(savedConta.getTitular() != null){
+            titularService.saveTitular(savedConta.getTitular());
+        }
+        return savedConta;
     }
 
     public Conta updateConta(Long contaId, Conta updatedConta) {

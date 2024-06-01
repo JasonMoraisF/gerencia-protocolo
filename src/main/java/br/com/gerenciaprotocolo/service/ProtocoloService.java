@@ -2,7 +2,6 @@ package br.com.gerenciaprotocolo.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import br.com.gerenciaprotocolo.model.Canal;
 import br.com.gerenciaprotocolo.model.Departamento;
 import br.com.gerenciaprotocolo.model.Protocolo;
 import br.com.gerenciaprotocolo.repository.CanalRepository;
-import br.com.gerenciaprotocolo.repository.ClienteRepository;
 import br.com.gerenciaprotocolo.repository.DepartamentoRepository;
 import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
 import jakarta.persistence.EntityNotFoundException;
