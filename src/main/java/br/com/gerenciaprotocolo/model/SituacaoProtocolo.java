@@ -28,9 +28,10 @@ public class SituacaoProtocolo {
     private List<Funcionario> funcionarios;
 
     @JsonIgnore
-    @JsonManagedReference
-    @OneToMany(mappedBy = "situacaoProtocolo")
-    private List<Protocolo> protocolos;
+    @OneToOne
+    @JoinColumn(name = "protocolo_id", nullable = true)
+    private Protocolo protocolo;
+
 
     public String getResposta() {
         return resposta;
@@ -56,12 +57,12 @@ public class SituacaoProtocolo {
         this.funcionarios = funcionarios;
     }
 
-    public List<Protocolo> getProtocolos() {
-        return protocolos;
+    public Protocolo getProtocolos() {
+        return protocolo;
     }
 
-    public void setProtocolos(List<Protocolo> protocolos) {
-        this.protocolos = protocolos;
+    public void setProtocolos(Protocolo protocolos) {
+        this.protocolo = protocolos;
     }
 
     public Long getSituacaoProtocoloID() {

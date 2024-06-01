@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Canal")
@@ -18,7 +19,7 @@ public class Canal {
     @Column(name = "tipo_canal", nullable = false, length = 30)
     private String TipoCanal;
 
-    @JsonIgnore
+    @JsonManagedReference
     @OneToMany(mappedBy = "canal")
     private List<Protocolo> protocolos;
     

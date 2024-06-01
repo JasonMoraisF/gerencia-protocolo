@@ -20,7 +20,7 @@ import jakarta.persistence.*;
 @JsonIdentityInfo(
     generator = ObjectIdGenerators.PropertyGenerator.class,
     property = "protocoloID")
-public class Protocolo {
+    public class Protocolo {
         
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,19 +28,20 @@ public class Protocolo {
     private Long protocoloID;
     
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "canal_id", nullable = false)
     private Canal canal;
-
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "departamento_id", nullable = true)
-    private Departamento departamento;
-
-    @JsonIgnore
+    
     @JsonManagedReference
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "cliente_id", nullable = true)
-    private Cliente clienteId;
+    private Cliente cliente;
+    
+    @Column(name = "departamento", nullable = true)
+    private Departamentos departamento;
+    
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private SituacaoProtocolo situacaoProtocolo;
 
     @Column(name = "tipo_protocolo", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
@@ -61,7 +62,7 @@ public class Protocolo {
     protected void onCreate(){
         this.dataAbertura = LocalDateTime.now();
     }
-    
+     
     @Column(name = "data_Prazo")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataPrazo;
@@ -84,11 +85,6 @@ public class Protocolo {
     @Column(name = "procedente")
     private Boolean procedente;
     
-    @JsonIgnore
-    @JsonManagedReference
-    @OneToOne
-    @JoinColumn(name = "situacaoProtocolo_id")
-    private SituacaoProtocolo situacaoProtocolo;
 
     public interface PublicView {}
     public interface PrivateView {}
@@ -165,11 +161,11 @@ public class Protocolo {
         this.tipoProtocolo = tipoProtocolo;
     }
     
-    public Departamento getDepartamento() {
+    public Departamentos getDepartamento() {
         return departamento;
     }
     
-    public void setDepartamento(Departamento departamento) {
+    public void setDepartamento(Departamentos departamento) {
         this.departamento = departamento;
     }
     
@@ -230,11 +226,11 @@ public class Protocolo {
     }
 
     public Cliente getClienteId() {
-        return clienteId;
+        return cliente;
     }
 
     public void setClienteId(Cliente cliente) {
-        this.clienteId = cliente;
+        this.cliente = cliente;
     }
 
     

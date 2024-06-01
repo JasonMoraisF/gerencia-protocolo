@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciaprotocolo.model.Canal;
-import br.com.gerenciaprotocolo.model.Departamento;
+import br.com.gerenciaprotocolo.model.Cliente;
 import br.com.gerenciaprotocolo.model.Protocolo;
+import br.com.gerenciaprotocolo.model.SituacaoProtocolo;
 import br.com.gerenciaprotocolo.repository.CanalRepository;
-import br.com.gerenciaprotocolo.repository.DepartamentoRepository;
+import br.com.gerenciaprotocolo.repository.ClienteRepository;
 import br.com.gerenciaprotocolo.repository.ProtocoloRepository;
+import br.com.gerenciaprotocolo.repository.SituacaoProtocoloRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -23,15 +25,20 @@ public class ProtocoloService {
     @Autowired
     private CanalRepository canalRepository;
 
-    @Autowired DepartamentoRepository departamentoRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
+    @Autowired
+    private SituacaoProtocoloRepository situacaoProtocoloRepository;
 
     public Protocolo createProtocolo(Protocolo protocolo){
         if(protocolo.getDataAbertura() == null){
             protocolo.setDataAbertura(LocalDateTime.now());
             protocolo.calcularDataPrazo(protocolo);
         }
+        Cliente cliente = clienteRepository.save(protocolo.getClienteId());
         Canal novoCanal = canalRepository.findByTipoCanal(protocolo.getCanal().getTipoCanal()).orElseThrow(() -> new EntityNotFoundException("Canal com nome " + protocolo.getCanal().getTipoCanal() + " não encontrado")); 
+        protocolo.setClienteId(cliente);
         protocolo.setCanal(novoCanal);
         protocolo.setAgilizar(null);
         protocolo.setPropensaoBacen(null);
@@ -54,18 +61,21 @@ public class ProtocoloService {
     public Protocolo updateProtocolo(Long id, Protocolo updatedProtocolo){
         Protocolo existingProtocolo = protocoloRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Protocolo inexistente: " + id));
         existingProtocolo.setDataUltimaAcao(LocalDateTime.now());
+
+        SituacaoProtocolo situacaoProtocolo = situacaoProtocoloRepository.save(updatedProtocolo.getSituacaoProtocolo());
+        situacaoProtocolo = situacaoProtocoloRepository.save(situacaoProtocolo);
+        
+        
         if(updatedProtocolo.getDataRecebimento()==null){
             existingProtocolo.setDataRecebimento(LocalDateTime.now());
         }
-
-        Departamento novoDepartamento = departamentoRepository.findByNome(updatedProtocolo.getDepartamento().getNome()).orElseThrow(() -> new EntityNotFoundException("Departamento com nome " + updatedProtocolo.getDepartamento().getNome() + " não encontrado")); 
-
-        existingProtocolo.setDepartamento(novoDepartamento);
+        
+        existingProtocolo.setSituacaoProtocolo(situacaoProtocolo);
+        existingProtocolo.setDepartamento(updatedProtocolo.getDepartamento());
         existingProtocolo.setAgilizar(updatedProtocolo.getAgilizar());
         existingProtocolo.setPropensaoBacen(updatedProtocolo.getPropensaoBacen());
         existingProtocolo.setDevido(updatedProtocolo.getDevido());
         existingProtocolo.setProcedente(updatedProtocolo.getProcedente());
-        existingProtocolo.setSituacaoProtocolo(updatedProtocolo.getSituacaoProtocolo());
         return protocoloRepository.save(existingProtocolo);
     }
 
