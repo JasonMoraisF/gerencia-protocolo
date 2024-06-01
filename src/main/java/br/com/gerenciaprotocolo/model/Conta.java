@@ -26,7 +26,7 @@ public class Conta {
     private Boolean statusConta;
 
     @JsonManagedReference
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "titular_id")
     private Titular titular;
 

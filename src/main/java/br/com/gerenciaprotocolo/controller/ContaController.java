@@ -23,7 +23,7 @@ public class ContaController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Conta createConta(@RequestBody Conta conta) {
-        return contaService.saveConta(conta);
+        return contaService.createConta(conta);
     }
 
     @GetMapping("/{id}")

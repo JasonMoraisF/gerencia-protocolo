@@ -1,8 +1,6 @@
 package br.com.gerenciaprotocolo.model;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -33,7 +31,7 @@ public class Titular {
     private List<Telefone> telefones;
 
     @JsonBackReference
-    @OneToOne(mappedBy = "titular")
+    @OneToOne(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true)
     private Conta conta;
 
     public Long getTitularID() {
