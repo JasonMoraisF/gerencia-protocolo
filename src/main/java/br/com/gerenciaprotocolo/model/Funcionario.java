@@ -17,30 +17,29 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_banco_de_dados", unique = true, updatable = false)
     private long codigoFuncionarioID;
-
+    
+    
     @Column(name = "codigo_funcionario_id_personalizado", unique = true, updatable = false)
     private String codigoFuncionarioIDPersonalizado; 
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-
+    
     @Column(name = "email", nullable = false, length = 100)
     private String email;
-
+    
     @Column(name = "departamento_id", nullable = false)
     @Enumerated
     private Departamentos departamentos;
-
+    
     @Column(name = "cargo", nullable = false)
     @Enumerated
     private TipoCargo cargo;
-
-    @JsonIgnore
+    
+    @OneToOne(mappedBy = "funcionario")
     @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "situacaoProtocolo_id", referencedColumnName = "situacaoProtocolo_id")
+    @JoinColumn(name = "situacaoProtocolo_id")
     private SituacaoProtocolo situacaoProtocolo;
-
      // Construtor para gerar o ID formatado
      public Funcionario() {
         this.codigoFuncionarioIDPersonalizado = generateFormattedId(); // Gera o ID personalizado
@@ -63,6 +62,11 @@ public class Funcionario {
     public long getCodigoFuncionarioID() {
         return codigoFuncionarioID;
     }
+    public Funcionario(long codigoFuncionarioID) {
+        this.codigoFuncionarioID = codigoFuncionarioID;
+    }
+
+
     public String getcodigoFuncionarioIDPersonalizado(){
         return codigoFuncionarioIDPersonalizado;
     }

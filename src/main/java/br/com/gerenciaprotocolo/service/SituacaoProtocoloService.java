@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciaprotocolo.model.SituacaoProtocolo;
+import br.com.gerenciaprotocolo.repository.FuncionarioRepository;
 import br.com.gerenciaprotocolo.repository.SituacaoProtocoloRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -14,14 +15,13 @@ public class SituacaoProtocoloService {
     
     @Autowired
     private SituacaoProtocoloRepository situacaoProtocoloRepository;
-    @Autowired 
-    private FuncionarioService funcionarioService;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
 
     public SituacaoProtocolo saveSituacaoProtocolo(SituacaoProtocolo situacaoProtocolo){
         SituacaoProtocolo savedSituacaoProtocolo = situacaoProtocoloRepository.save(situacaoProtocolo);
-        if (savedSituacaoProtocolo.getFuncionarios() != null && !situacaoProtocolo.getFuncionarios().isEmpty()) {
-            funcionarioService.saveFuncionario(savedSituacaoProtocolo.getFuncionarios().get(0));
-        }
+        savedSituacaoProtocolo.setFuncionario(situacaoProtocolo.getFuncionario());
         return situacaoProtocolo;
     }
 
@@ -30,7 +30,7 @@ public class SituacaoProtocoloService {
 
         existingSituacaoProtocolo.setResposta(updatedSituacaoProtocolo.getResposta());
         existingSituacaoProtocolo.setStatus(updatedSituacaoProtocolo.getStatus());
-        existingSituacaoProtocolo.setFuncionarios(updatedSituacaoProtocolo.getFuncionarios());
+        existingSituacaoProtocolo.setFuncionario(updatedSituacaoProtocolo.getFuncionario());
         return situacaoProtocoloRepository.save(existingSituacaoProtocolo);
     }
 

@@ -31,6 +31,9 @@ public class ProtocoloService {
     @Autowired
     private SituacaoProtocoloRepository situacaoProtocoloRepository;
 
+    @Autowired
+    private SituacaoProtocoloService situacaoProtocoloService;
+
     public Protocolo createProtocolo(Protocolo protocolo){
         if(protocolo.getDataAbertura() == null){
             protocolo.setDataAbertura(LocalDateTime.now());
@@ -62,8 +65,7 @@ public class ProtocoloService {
         Protocolo existingProtocolo = protocoloRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Protocolo inexistente: " + id));
         existingProtocolo.setDataUltimaAcao(LocalDateTime.now());
 
-        SituacaoProtocolo situacaoProtocolo = situacaoProtocoloRepository.save(updatedProtocolo.getSituacaoProtocolo());
-        situacaoProtocolo = situacaoProtocoloRepository.save(situacaoProtocolo);
+        SituacaoProtocolo situacaoProtocolo = situacaoProtocoloService.saveSituacaoProtocolo(updatedProtocolo.getSituacaoProtocolo());
         
         
         if(updatedProtocolo.getDataRecebimento()==null){
