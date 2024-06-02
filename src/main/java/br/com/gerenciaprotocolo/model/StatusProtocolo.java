@@ -1,53 +1,41 @@
-// package br.com.gerenciaprotocolo.model;
+package br.com.gerenciaprotocolo.model;
 
-// import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-// @Entity
-// public class StatusProtocolo {
 
-//     public static boolean isAlphanumeric(String str) {
-//         return str.matches("^[a-zA-Z0-9]+$");
-//     }
-//     public static final String NOVO = null;
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-//     private String nome;
+public enum StatusProtocolo {
+    REDIRECIONADO("redirecionado"),
+    ANALISE("analise"),
+    RESPONDIDO("respondido"),
+    NOVO("novo"),
+    DEVOLVIDO("devolvido");
 
-//     public StatusProtocolo() {
-//     }
+    private String descricao;
 
-//     public StatusProtocolo(String nome) {
-//         this.nome = nome;
-//     }
+    StatusProtocolo(String descricao){
+        this.descricao = descricao;
+    }
 
-//     @ManyToOne
-//     public Protocolo getProtocolo() {
-//         return protocolo;
-//     }
+    public String getDescricao(){
+        return descricao;
+    }
 
-//     public void setProtocolo(Protocolo protocolo) {
-//         this.protocolo = protocolo;
-//     }
+    @JsonCreator
+    public static StatusProtocolo fromDescricao(String descricao){
+        for(StatusProtocolo status : StatusProtocolo.values()){
+            if(status.getDescricao().equals(descricao)){
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("Status Invalido: " + descricao);
+    }
 
-//     private Protocolo protocolo;
+    @Override
+    @JsonValue
+    public String toString(){
+        return descricao;
+    }
 
-//     public Long getId() {
-//         return id;
-//     }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
-
-//     @Column(length=20,nullable=false)
-//     public String getNome() {
-//         return nome;
-//     }
-
-//     public void setNome(String nome) throws IllegalArgumentException{
-        
-//         this.nome = nome;
-//     }
-// }
-    
+}

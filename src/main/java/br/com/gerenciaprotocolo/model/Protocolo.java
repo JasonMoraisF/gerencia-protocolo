@@ -1,186 +1,237 @@
-// package br.com.gerenciaprotocolo.model;
+package br.com.gerenciaprotocolo.model;
 
-// import java.time.LocalDate;
-// import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-// @Entity
-// @Table(name = "Protocolo")
-// public class Protocolo {
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long protocoloNumero;
+import jakarta.persistence.*;
 
-//     @Column(name = "Data_Abertura", nullable = false)
-//     private LocalDate dataAbertura;
-
-//     @Column(name = "Tipo_Protocolo", nullable = false)
-//     private String tipoProtocolo;
-
-//     @Column(name = "Descricao", nullable = false)
-//     private String descricao;
-
-//     @Column(name = "Data_Prazo", nullable = false)
-//     private LocalDate dataPrazo;
-
-//     @Column(name = "Data_UltimaAcao")
-//     private LocalDate dataUltimaAcao;
-
-//     @Column(name = "Data_Recebimento")
-//     private LocalDate dataRecebimento;
-
-//     @Column(name = "PropensaoBacen")
-//     private Boolean propensaoBacen;
-
-//     @Column(name = "Agilizar")
-//     private Boolean agilizar;
-
-//     @Column(name = "Devido")
-//     private Boolean devido;
-
-//     @Column(name = "Procedente")
-//     private Boolean procedente;
-
-//     @ManyToOne
-//     @JoinColumn(name = "Cliente_ID", nullable = false)
-//     private Cliente cliente;
-
-//     @ManyToOne
-//     @JoinColumn(name = "Canal_ID", nullable = false)
-//     private Canal canal;
-
-//     @ManyToOne
-//     @JoinColumn(name = "Departamento_ID", nullable = false)
-//     private Departamento departamento;
-
-
-//   public Long getProtocoloNumero() {
-//     return this.protocoloNumero;
-//   }
-
-//   public void setProtocoloNumero(Long protocoloNumero) {
-//     this.protocoloNumero = protocoloNumero;
-//   }
-
-//   public LocalDate getDataAbertura() {
-//     return this.dataAbertura;
-//   }
-
-//   public void setDataAbertura(LocalDate dataAbertura) {
-//     this.dataAbertura = dataAbertura;
-//   }
-
-//   public String getTipoProtocolo() {
-//     return this.tipoProtocolo;
-//   }
-
-//   public void setTipoProtocolo(String tipoProtocolo) {
-//     this.tipoProtocolo = tipoProtocolo;
-//   }
-
-//   public String getDescricao() {
-//     return this.descricao;
-//   }
-
-//   public void setDescricao(String descricao) {
-//     this.descricao = descricao;
-//   }
-
-//   public LocalDate getDataPrazo() {
-//     return this.dataPrazo;
-//   }
-
-//   public void setDataPrazo(LocalDate dataPrazo) {
-//     this.dataPrazo = dataPrazo;
-//   }
-
-//   public LocalDate getDataUltimaAcao() {
-//     return this.dataUltimaAcao;
-//   }
-
-//   public void setDataUltimaAcao(LocalDate dataUltimaAcao) {
-//     this.dataUltimaAcao = dataUltimaAcao;
-//   }
-
-//   public LocalDate getDataRecebimento() {
-//     return this.dataRecebimento;
-//   }
-
-//   public void setDataRecebimento(LocalDate dataRecebimento) {
-//     this.dataRecebimento = dataRecebimento;
-//   }
-
-//   public Boolean isPropensaoBacen() {
-//     return this.propensaoBacen;
-//   }
-
-//   public Boolean getPropensaoBacen() {
-//     return this.propensaoBacen;
-//   }
-
-//   public void setPropensaoBacen(Boolean propensaoBacen) {
-//     this.propensaoBacen = propensaoBacen;
-//   }
-
-//   public Boolean isAgilizar() {
-//     return this.agilizar;
-//   }
-
-//   public Boolean getAgilizar() {
-//     return this.agilizar;
-//   }
-
-//   public void setAgilizar(Boolean agilizar) {
-//     this.agilizar = agilizar;
-//   }
-
-//   public Boolean isDevido() {
-//     return this.devido;
-//   }
-
-//   public Boolean getDevido() {
-//     return this.devido;
-//   }
-
-//   public void setDevido(Boolean devido) {
-//     this.devido = devido;
-//   }
-
-//   public Boolean isProcedente() {
-//     return this.procedente;
-//   }
-
-//   public Boolean getProcedente() {
-//     return this.procedente;
-//   }
-
-//   public void setProcedente(Boolean procedente) {
-//     this.procedente = procedente;
-//   }
-
-//   public Cliente getCliente() {
-//     return this.cliente;
-//   }
-
-//   public void setCliente(Cliente cliente) {
-//     this.cliente = cliente;
-//   }
-
-//   public Canal getCanal() {
-//     return this.canal;
-//   }
-
-//   public void setCanal(Canal canal) {
-//     this.canal = canal;
-//   }
-
-//   public Departamento getDepartamento() {
-//     return this.departamento;
-//   }
-
-//   public void setDepartamento(Departamento departamento) {
-//     this.departamento = departamento;
-//   }
+@Entity
+@Table(name = "Protocolo")
+@EntityListeners(AuditingEntityListener.class)
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "protocoloID")
+    public class Protocolo {
+        
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "protocolo_id")
+    private Long protocoloID;
     
-// }
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "canal_id", nullable = false)
+    private Canal canal;
+    
+    @JsonManagedReference
+    @OneToOne
+    @JoinColumn(name = "cliente_id", nullable = true)
+    private Cliente cliente;
+    
+    @Column(name = "departamento", nullable = true)
+    private Departamentos departamento;
+    
+    
+    @Column(name = "tipo_protocolo", nullable = false, length = 50)
+    @Enumerated(EnumType.STRING)
+    private TipoProtocolo tipoProtocolo;
+    
+    @Column(name = "descricao", nullable = false)
+    private String descricao;
+    
+    @Column(name = "agilizar", nullable = true)
+    private Boolean agilizar;
+    
+    @Column(name = "data_Abertura", nullable = false)
+    @CreatedDate
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataAbertura;
+    
+    @PrePersist
+    protected void onCreate(){
+        this.dataAbertura = LocalDateTime.now();
+    }
+    
+    @Column(name = "data_Prazo")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataPrazo;
+    
+    @Column(name = "data_UltimaAcao")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataUltimaAcao;
+    
+    @Column(name = "data_Recebimento")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataRecebimento;
+    
+    
+    @Column(name = "propensao_Bacen")
+    private Boolean propensaoBacen;
+    
+    @Column(name = "devido")
+    private Boolean devido;
+    
+    @Column(name = "procedente")
+    private Boolean procedente;
+    
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private SituacaoProtocolo situacaoProtocolo;
+    
+    public interface PublicView {}
+    public interface PrivateView {}
+    
+    
+    public void calcularDataPrazo(Protocolo protocolo){
+        switch(protocolo.getTipoProtocolo()){
+            case RECLAMACAO:
+            protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(5));
+            break;
+            case ELOGIO:
+            protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(10)); 
+            break;
+            case INFORMACAO:
+            protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
+                break;
+            case SOLICITACAO:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
+                break;
+            case CONSULTA:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
+                break;
+            case DENUNCIA:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(3)); 
+                break;
+            case CANCELAMENTO:
+                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(2)); 
+                break;
+        }
+    }
+
+    
+    public Long getProtocoloID() {
+        return protocoloID;
+    }
+    
+    public LocalDateTime getDataAbertura() {
+        return dataAbertura;
+    }
+    
+    public void setDataAbertura(LocalDateTime dataAbertura) {
+        this.dataAbertura = dataAbertura;
+    }
+    
+    public LocalDateTime getDataPrazo() {
+        return dataPrazo;
+    }
+    
+    public void setDataPrazo(LocalDateTime dataPrazo) {
+        this.dataPrazo = dataPrazo;
+    }
+    
+    public LocalDateTime getDataUltimaAcao() {
+        return dataUltimaAcao;
+    }
+    
+    public void setDataUltimaAcao(LocalDateTime dataUltimaAcao) {
+        this.dataUltimaAcao = dataUltimaAcao;
+    }
+    
+    public LocalDateTime getDataRecebimento() {
+        return dataRecebimento;
+    }
+    
+    public void setDataRecebimento(LocalDateTime dataRecebimento) {
+        this.dataRecebimento = dataRecebimento;
+    }
+    
+    public TipoProtocolo getTipoProtocolo() {
+        return tipoProtocolo;
+    }
+    
+    public void setTipoProtocolo(TipoProtocolo tipoProtocolo) {
+        this.tipoProtocolo = tipoProtocolo;
+    }
+    
+    public Departamentos getDepartamento() {
+        return departamento;
+    }
+    
+    public void setDepartamento(Departamentos departamento) {
+        this.departamento = departamento;
+    }
+    
+    public Boolean getPropensaoBacen() {
+        return propensaoBacen;
+    }
+    
+    public void setPropensaoBacen(Boolean propensãoBacen) {
+        this.propensaoBacen = propensãoBacen;
+    }
+    
+    public Boolean getAgilizar() {
+        return agilizar;
+    }
+    
+    public void setAgilizar(Boolean agilizar) {
+        this.agilizar = agilizar;
+    }
+
+    public Boolean getDevido() {
+        return devido;
+    }
+
+    public void setDevido(Boolean devido) {
+        this.devido = devido;
+    }
+
+    public Boolean getProcedente() {
+        return procedente;
+    }
+
+    public void setProcedente(Boolean procedente) {
+        this.procedente = procedente;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public SituacaoProtocolo getSituacaoProtocolo() {
+        return situacaoProtocolo;
+    }
+
+    public void setSituacaoProtocolo(SituacaoProtocolo situacaoProtocolo) {
+        this.situacaoProtocolo = situacaoProtocolo;
+    }
+
+    public Canal getCanal() {
+        return canal;
+    }
+
+    public void setCanal(Canal canal) {
+        this.canal = canal;
+    }
+
+    public Cliente getClienteId() {
+        return cliente;
+    }
+
+    public void setClienteId(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    
+}

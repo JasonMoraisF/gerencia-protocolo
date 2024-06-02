@@ -1,42 +1,34 @@
 package br.com.gerenciaprotocolo.model;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum TipoProtocolo {
-    RECLAMACAO("reclamacao"),
-    ELOGIO("elogio"),
-    INFORMACAO("informacao"),
-    SOLICITACAO("solicitacao"),
-    CONSULTA("consulta"),
-    DENUNCIA("denuncia"),
-    CANCELAMENTO("cancelamento");
-
+public enum TipoCliente {
+    FISICO("fisico"),
+    JURIDICO("juridico");
+    
     private String descricao;
 
-    TipoProtocolo(String descricao){
+    TipoCliente(String descricao){
         this.descricao = descricao;
     }
+    
     public String getDescricao(){
         return descricao;
     }
 
     @JsonCreator
-    public static TipoProtocolo fromDescricao(String descricao){
-        for(TipoProtocolo tipo : TipoProtocolo.values()){
+    public static TipoCliente fromDescricao(String descricao){
+        for(TipoCliente tipo : TipoCliente.values()){
             if(tipo.getDescricao().equals(descricao)){
                 return tipo;
             }
         }
-        throw new IllegalArgumentException("Tipo Invalido: " + descricao);
+        throw new IllegalArgumentException("Tipo do Cliente invalido: " + descricao);
     }
-
 
     @Override
     @JsonValue
     public String toString(){
         return descricao;
     }
-
-
 }

@@ -1,29 +1,52 @@
-// package br.com.gerenciaprotocolo.model;
+package br.com.gerenciaprotocolo.model;
 
-// import jakarta.persistence.*;
+import jakarta.persistence.*;
 
-// @Entity
+import java.util.List;
 
-// public class Canal {
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-//     private String nome;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-//     public Long getId() {
-//         return id;
-//     }
+@Entity
+@Table(name = "Canal")
+public class Canal {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "canal_id")
+    private Long canalID;
+  
+    @Column(name = "tipo_canal", nullable = false, length = 30)
+    private String TipoCanal;
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    @JsonManagedReference
+    @OneToMany(mappedBy = "canal")
+    private List<Protocolo> protocolos;
+    
+    public Long getCanalID() {
+        return canalID;
+    }
 
-//     @Column(nullable = false, unique = true)
-//     public String getNome() {
-//         return nome;
-//     }
+    public void setCanalID(Long canalID) {
+        this.canalID = canalID;
+    }
 
-//     public void setNome(String nome) throws IllegalArgumentException{
-//         if (nome == null || nome.trim().isEmpty()) throw new IllegalArgumentException("O campo 'Nome' não pode ser null");
-        
-// }}
+    public String getTipoCanal() {
+        return TipoCanal;
+    }
+
+    public void setTipoCanal(String tipoCanal) {
+        TipoCanal = tipoCanal;
+    }
+
+    public List<Protocolo> getProtocolos() {
+        return protocolos;
+    }
+
+    public void setProtocolos(List<Protocolo> protocolos) {
+        this.protocolos = protocolos;
+    }
+
+    
+
+}

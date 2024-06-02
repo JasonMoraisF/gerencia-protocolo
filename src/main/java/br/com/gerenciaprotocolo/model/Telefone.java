@@ -1,55 +1,101 @@
-// package br.com.gerenciaprotocolo.model;
+package br.com.gerenciaprotocolo.model;
 
-// import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-// @Entity
-// @Table(name = "telefone")
-// public class Telefone {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-//     @Id
-// @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long telefoneId;
-
-//     @Column(name = "numero", nullable = false, length = 10)
-//     private String numero;
-
-//     @Column(name = "ddd", nullable = false, length = 2)
-//     private String ddd;
-
-//     @Column(name = "tipo_telefone", nullable = false, length = 50)
-//     private String tipoTelefone;
-
-
-//   public Long getTelefoneId() {
-//     return this.telefoneId;
-//   }
-
-//   public void setTelefoneId(Long telefoneId) {
-//     this.telefoneId = telefoneId;
-//   }
-
-//   public String getNumero() {
-//     return this.numero;
-//   }
-
-//   public void setNumero(String numero) {
-//     this.numero = numero;
-//   }
-
-//   public String getDdd() {
-//     return this.ddd;
-//   }
-
-//   public void setDdd(String ddd) {
-//     this.ddd = ddd;
-//   }
-
-//   public String getTipoTelefone() {
-//     return this.tipoTelefone;
-//   }
-
-//   public void setTipoTelefone(String tipoTelefone) {
-//     this.tipoTelefone = tipoTelefone;
-//   }
+@Entity
+@Table(name = "Telefone")
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "telefoneID")
+public class Telefone {
     
-// }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "telefone_id")
+    private Long telefoneID;
+
+    @Column(name = "numero", nullable = false, length = 9)
+    private String numero;
+
+    @Column(name = "DDD", nullable = false, length = 3)
+    private String ddd;
+
+    @Column(name = "tipo_telefone", nullable = false, length = 11)
+    @Enumerated(EnumType.STRING)
+    private TipoTelefone tipoTelefone;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = true)
+    private Cliente cliente;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "titular_id", nullable = true)
+    private Titular titular;
+
+    public Long getTelefoneID() {
+        return telefoneID;
+    }
+
+    public void setTelefoneID(Long telefoneID) {
+        this.telefoneID = telefoneID;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
+    }
+
+    public TipoTelefone getTipoTelefone() {
+        return tipoTelefone;
+    }
+
+    public void setTipoTelefone(TipoTelefone tipoTelefone) {
+        this.tipoTelefone = tipoTelefone;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Titular getTitular() {
+        return titular;
+    }
+
+    public void setTitular(Titular titular) {
+        this.titular = titular;
+    }
+
+    
+}

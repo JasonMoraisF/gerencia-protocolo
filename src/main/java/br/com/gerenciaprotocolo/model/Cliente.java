@@ -1,90 +1,95 @@
-// package br.com.gerenciaprotocolo.model;
+package br.com.gerenciaprotocolo.model;
 
-// import jakarta.persistence.*;
+import java.util.List;
 
-// @Entity
-// @Table(name = "cliente")
-// public class Cliente {
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long clienteId;
+import jakarta.persistence.*;
 
-//     @Column(nullable = false, length = 100)
-//     private String nome;
-
-//     @Column(nullable = false, unique = true, length = 11)
-//     private String cpf;
-
-//     @Column(length = 100)
-//     private String email;
-
-//     @Column(length = 50)
-//     private String tipoCliente;
-
-//     @ManyToOne
-//     @JoinColumn(name = "telefone_id", referencedColumnName = "telefone_id")
-//     private Telefone telefone;
-
-//     @ManyToOne
-//     @JoinColumn(name = "conta_id", referencedColumnName = "conta_id")
-//     private Conta conta;
-
-
-//   public Long getClienteId() {
-//     return this.clienteId;
-//   }
-
-//   public void setClienteId(Long clienteId) {
-//     this.clienteId = clienteId;
-//   }
-
-//   public String getNome() {
-//     return this.nome;
-//   }
-
-//   public void setNome(String nome) {
-//     this.nome = nome;
-//   }
-
-//   public String getCpf() {
-//     return this.cpf;
-//   }
-
-//   public void setCpf(String cpf) {
-//     this.cpf = cpf;
-//   }
-
-//   public String getEmail() {
-//     return this.email;
-//   }
-
-//   public void setEmail(String email) {
-//     this.email = email;
-//   }
-
-//   public String getTipoCliente() {
-//     return this.tipoCliente;
-//   }
-
-//   public void setTipoCliente(String tipoCliente) {
-//     this.tipoCliente = tipoCliente;
-//   }
-
-//   public Telefone getTelefone() {
-//     return this.telefone;
-//   }
-
-//   public void setTelefone(Telefone telefone) {
-//     this.telefone = telefone;
-//   }
-
-//   public Conta getConta() {
-//     return this.conta;
-//   }
-
-//   public void setConta(Conta conta) {
-//     this.conta = conta;
-//   }
+@Entity
+@Table(name = "Cliente")
+public class Cliente {
     
-// }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cliente_id")
+    private Long clienteID;
+    
+    @JsonBackReference
+    @OneToOne
+    @JoinColumn(name = "protocolo_id", nullable = true)
+    private Protocolo protocolo;
+
+    @Column(name = "nome", nullable = true, length = 100)
+    private String nome;
+
+    @Column(name = "cpf", nullable = true, length = 100)
+    private String cpf;
+
+    @Column(name = "email", nullable = true, length = 100)
+    private String email;
+
+    @Column(name = "tipo_cliente", nullable = true)
+    @Enumerated(EnumType.STRING)
+    private TipoCliente tipoCliente;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Telefone> telefones;
+
+
+    public void setClienteID(Long clienteID) {
+        this.clienteID = clienteID;
+    }
+
+    public Long getClienteID() {
+        return clienteID;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    public List<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
+    public Protocolo getProtocolo() {
+        return protocolo;
+    }
+
+    public void setProtocolo(Protocolo protocolo) {
+        this.protocolo = protocolo;
+    }
+}

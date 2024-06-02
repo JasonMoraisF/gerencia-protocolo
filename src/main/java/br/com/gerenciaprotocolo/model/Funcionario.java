@@ -1,84 +1,119 @@
-// package br.com.gerenciaprotocolo.model;
-// import jakarta.persistence.*;
+package br.com.gerenciaprotocolo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+//import com.fasterxml.jackson.annotation.JsonBackReference; (não ta sendo usado)
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-// @Entity
-// public class Funcionario {
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-//     private String nome;
-//     private String departamentoResponsavel;
-//     private boolean propensaoBacen;
-//     private boolean agilizar;
-//     private String devido;
-//     private String procedente;
+import jakarta.persistence.*;
 
+import java.util.Random;
 
-//     public Long getId() {
-//         return this.id;
-//     }
+@Entity
+@Table(name = "Funcionario")
+public class Funcionario {
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_banco_de_dados", unique = true, updatable = false)
+    private long codigoFuncionarioID;
+    
+    
+    @Column(name = "codigo_funcionario_id_personalizado", unique = true, updatable = false)
+    private String codigoFuncionarioIDPersonalizado; 
 
-//     public String getNome() {
-//         return this.nome;
-//     }
-
-//     public void setNome(String nome) {
-//         this.nome = nome;
-//     }
-
-//     public String getDepartamentoResponsavel() {
-//         return this.departamentoResponsavel;
-//     }
-
-//     public void setDepartamentoResponsavel(String departamentoResponsavel) {
-//         this.departamentoResponsavel = departamentoResponsavel;
-//     }
-
-//     public boolean isPropensaoBacen() {
-//         return this.propensaoBacen;
-//     }
-
-//     public boolean getPropensaoBacen() {
-//         return this.propensaoBacen;
-//     }
-
-//     public void setPropensaoBacen(boolean propensaoBacen) {
-//         this.propensaoBacen = propensaoBacen;
-//     }
-
-//     public boolean isAgilizar() {
-//         return this.agilizar;
-//     }
-
-//     public boolean getAgilizar() {
-//         return this.agilizar;
-//     }
-
-//     public void setAgilizar(boolean agilizar) {
-//         this.agilizar = agilizar;
-//     }
-
-//     public String getDevido() {
-//         return this.devido;
-//     }
-
-//     public void setDevido(String devido) {
-//         this.devido = devido;
-//     }
-
-//     public String getProcedente() {
-//         return this.procedente;
-//     }
-
-//     public void setProcedente(String procedente) {
-//         this.procedente = procedente;
-//     }
+    @Column(name = "nome", nullable = false, length = 100)
+    private String nome;
+    
+    @Column(name = "email", nullable = false, length = 100)
+    private String email;
+    
+    @Column(name = "departamento_id", nullable = false)
+    @Enumerated
+    private Departamentos departamentos;
+    
+    @Column(name = "cargo", nullable = false)
+    @Enumerated
+    private TipoCargo cargo;
+    
+    @OneToOne(mappedBy = "funcionario")
+    @JsonBackReference
+    @JoinColumn(name = "situacaoProtocolo_id")
+    private SituacaoProtocolo situacaoProtocolo;
+     // Construtor para gerar o ID formatado
+     public Funcionario() {
+        this.codigoFuncionarioIDPersonalizado = generateFormattedId(); // Gera o ID personalizado
+    }
     
 
+     // Método para gerar o ID formatado
+     private String generateFormattedId() {
+        Random random = new Random();
+        int numeroAleatorio;
+        do {
+            numeroAleatorio = random.nextInt(900000) + 1; // Gera um número aleatório entre 1 e 899999
+        } while (numeroAleatorio < 100000 || numeroAleatorio >= 900000); // Garante que o primeiro dígito não seja zero
+        return "i" + String.format("%06d", numeroAleatorio);
+    }
+    
 
-// }
+    // Getters e Setters
+
+    public long getCodigoFuncionarioID() {
+        return codigoFuncionarioID;
+    }
+    public Funcionario(long codigoFuncionarioID) {
+        this.codigoFuncionarioID = codigoFuncionarioID;
+    }
+
+
+    public String getcodigoFuncionarioIDPersonalizado(){
+        return codigoFuncionarioIDPersonalizado;
+    }
+    public void setCodigoFuncionarioID(long codigoFuncionarioID) {
+        this.codigoFuncionarioID = codigoFuncionarioID;
+    }
+    public void setcodigoFuncionarioIDPersonalizado(String codigoFuncionarioIDPersonalizado) {
+        this.codigoFuncionarioIDPersonalizado = codigoFuncionarioIDPersonalizado;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Departamentos getDepartamentos() {
+        return departamentos;
+    }
+
+    public void setDepartamentos(Departamentos departamento) {
+        this.departamentos = departamento;
+    }
+
+    public TipoCargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(TipoCargo cargo) {
+        this.cargo = cargo;
+    }
+
+    public SituacaoProtocolo getSituacaoProtocolo() {
+        return situacaoProtocolo;
+    }
+
+    public void setSituacaoProtocolo(SituacaoProtocolo situacaoProtocolo) {
+        this.situacaoProtocolo = situacaoProtocolo;
+    }
+}

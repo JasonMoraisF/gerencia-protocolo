@@ -1,89 +1,84 @@
-// package br.com.gerenciaprotocolo.model;
+package br.com.gerenciaprotocolo.model;
 
-// import jakarta.persistence.*;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 
-// @Entity
-// @Table(name = "conta")
-// public class Conta {
+@Entity
+@Table(name = "Conta")
+public class Conta {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long contaId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "conta_id")
+    private Long contaID;
 
-//     @Column(name = "funcionario_id", nullable = false)
-//     private Integer funcionarioId;
+    @Column(name = "agencia", nullable = false, length = 4)
+    private String agencia;
 
-//     @Column(name = "agencia", nullable = false, length = 4)
-//     private String agencia;
+    @Column(name = "numero_Conta", nullable = false, length = 10)
+    private String numeroConta;
 
-//     @Column(name = "numero_conta", nullable = false, length = 10)
-//     private String numeroConta;
+    @Column(name = "tipo_cliente")
+    @Enumerated
+    private TipoCliente tipoCliente;
 
-//     @Column(name = "tipo_cliente", nullable = false, length = 50)
-//     private String tipoCliente;
+    @Column(name= "status_conta")
+    private Boolean statusConta;
 
-//     @Column(name = "status_conta", nullable = false, length = 50)
-//     private String statusConta;
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "titular_id")
+    private Titular titular;
 
-//     @ManyToOne
-//     @JoinColumn(name = "funcionario_id", nullable = false)
-//     private Funcionario funcionario;
+    public Long getContaID() {
+        return contaID;
+    }
+
+    public void setContaID(Long contaID) {
+        this.contaID = contaID;
+    }
+
+    public String getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(String agencia) {
+        this.agencia = agencia;
+    }
+
+    public String getNumeroConta() {
+        return numeroConta;
+    }
+
+    public void setNumeroConta(String numeroConta) {
+        this.numeroConta = numeroConta;
+    }
+
+    public Boolean getStatusConta() {
+        return statusConta;
+    }
+
+    public void setStatusConta(Boolean statusConta) {
+        this.statusConta = statusConta;
+    }
+
+    public Titular getTitular() {
+        return titular;
+    }
+
+    public void setTitular(Titular titular) {
+        this.titular = titular;
+    }
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
 
 
-//   public Long getContaId() {
-//     return this.contaId;
-//   }
 
-//   public void setContaId(Long contaId) {
-//     this.contaId = contaId;
-//   }
-
-//   public Integer getFuncionarioId() {
-//     return this.funcionarioId;
-//   }
-
-//   public void setFuncionarioId(Integer funcionarioId) {
-//     this.funcionarioId = funcionarioId;
-//   }
-
-//   public String getAgencia() {
-//     return this.agencia;
-//   }
-
-//   public void setAgencia(String agencia) {
-//     this.agencia = agencia;
-//   }
-
-//   public String getNumeroConta() {
-//     return this.numeroConta;
-//   }
-
-//   public void setNumeroConta(String numeroConta) {
-//     this.numeroConta = numeroConta;
-//   }
-
-//   public String getTipoCliente() {
-//     return this.tipoCliente;
-//   }
-
-//   public void setTipoCliente(String tipoCliente) {
-//     this.tipoCliente = tipoCliente;
-//   }
-
-//   public String getStatusConta() {
-//     return this.statusConta;
-//   }
-
-//   public void setStatusConta(String statusConta) {
-//     this.statusConta = statusConta;
-//   }
-
-//   public Funcionario getFuncionario() {
-//     return this.funcionario;
-//   }
-
-//   public void setFuncionario(Funcionario funcionario) {
-//     this.funcionario = funcionario;
-//   }
     
-// }
+}
