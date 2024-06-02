@@ -16,7 +16,7 @@ public class Canal {
     @Column(name = "canal_id")
     private Long canalID;
   
-    @Column(name = "tipo_canal", nullable = false, length = 30)
+    @Column(name = "tipo_canal", nullable = false, length = 50)
     private String TipoCanal;
 
     @JsonManagedReference

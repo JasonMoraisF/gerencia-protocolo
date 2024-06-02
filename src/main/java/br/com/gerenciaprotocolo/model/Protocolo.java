@@ -43,7 +43,7 @@ import jakarta.persistence.*;
     @Enumerated(EnumType.STRING)
     private TipoProtocolo tipoProtocolo;
     
-    @Column(name = "descricao", nullable = false)
+    @Column(name = "descricao", nullable = false, length = 500)
     private String descricao;
     
     @Column(name = "agilizar", nullable = true)

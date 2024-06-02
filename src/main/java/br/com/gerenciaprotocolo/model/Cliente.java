@@ -23,7 +23,7 @@ public class Cliente {
     @Column(name = "nome", nullable = true, length = 100)
     private String nome;
 
-    @Column(name = "cpf", nullable = true, length = 100)
+    @Column(name = "cpf", nullable = true, length = 11)
     private String cpf;
 
     @Column(name = "email", nullable = true, length = 100)
