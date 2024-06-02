@@ -32,17 +32,13 @@ import jakarta.persistence.*;
     @JoinColumn(name = "canal_id", nullable = false)
     private Canal canal;
     
-    @JsonManagedReference
-    @OneToOne
-    @JoinColumn(name = "cliente_id", nullable = true)
-    private Cliente cliente;
     
     @Column(name = "departamento", nullable = true)
     private Departamentos departamento;
     
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private SituacaoProtocolo situacaoProtocolo;
-
+    
     @Column(name = "tipo_protocolo", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private TipoProtocolo tipoProtocolo;
@@ -62,19 +58,19 @@ import jakarta.persistence.*;
     protected void onCreate(){
         this.dataAbertura = LocalDateTime.now();
     }
-     
+    
     @Column(name = "data_Prazo")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataPrazo;
-
+    
     @Column(name = "data_UltimaAcao")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataUltimaAcao;
-
+    
     @Column(name = "data_Recebimento")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataRecebimento;
-
+    
     
     @Column(name = "propensao_Bacen")
     private Boolean propensaoBacen;
@@ -85,25 +81,29 @@ import jakarta.persistence.*;
     @Column(name = "procedente")
     private Boolean procedente;
     
-
+    @JsonManagedReference
+    @OneToOne
+    @JoinColumn(name = "cliente_id", nullable = true)
+    private Cliente cliente;
+    
     public interface PublicView {}
     public interface PrivateView {}
-
-
+    
+    
     public void calcularDataPrazo(Protocolo protocolo){
         switch(protocolo.getTipoProtocolo()){
             case RECLAMACAO:
-                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(5));
-                break;
+            protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(5));
+            break;
             case ELOGIO:
-                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(10)); 
-                break;
+            protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(10)); 
+            break;
             case INFORMACAO:
-                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
-                break;
+            protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
+            break;
             case SOLICITACAO:
-                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
-                break;
+            protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
+            break;
             case CONSULTA:
                 protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
                 break;
