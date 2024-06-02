@@ -22,7 +22,6 @@ public class SituacaoProtocolo {
     @Enumerated(EnumType.STRING)
     private StatusProtocolo status;
 
-    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "situacaoProtocolo")
     private List<Funcionario> funcionarios;

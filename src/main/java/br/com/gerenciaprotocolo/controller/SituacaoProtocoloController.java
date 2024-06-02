@@ -28,8 +28,8 @@ public class SituacaoProtocoloController {
     }
 
     @PostMapping
-    public SituacaoProtocolo createSituacaoProtocolo(@RequestBody SituacaoProtocolo situacaoProtocolo, @PathVariable Long id){
-        return situacaoProtocoloService.saveSituacaoProtocolo(situacaoProtocolo,id);
+    public SituacaoProtocolo createSituacaoProtocolo(@RequestBody SituacaoProtocolo situacaoProtocolo){
+        return situacaoProtocoloService.saveSituacaoProtocolo(situacaoProtocolo);
     }
 
     @GetMapping("/{id}")
@@ -37,9 +37,9 @@ public class SituacaoProtocoloController {
         return situacaoProtocoloService.findById(id);
     }
 
-    @PutMapping("/{id}")
-        public SituacaoProtocolo updatedSituacaoProtocolo(@PathVariable Long id, @RequestBody SituacaoProtocolo situacaoProtocoloDetails){
-            return situacaoProtocoloService.updateSituacaoProtocolo(id, situacaoProtocoloDetails);
+    @PutMapping("/{idSituProtocolo}/{idFuncionario}")
+        public SituacaoProtocolo updatedSituacaoProtocolo(@PathVariable Long idSituProtocolo,@PathVariable Long idFuncionario, @RequestBody SituacaoProtocolo situacaoProtocoloDetails){
+            return situacaoProtocoloService.updateSituacaoProtocolo(idSituProtocolo,idFuncionario, situacaoProtocoloDetails);
         }
         
     @DeleteMapping("/{id}")

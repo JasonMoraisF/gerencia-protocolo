@@ -19,22 +19,21 @@ public class SituacaoProtocoloService {
     @Autowired 
     private FuncionarioService funcionarioService;
 
-    public SituacaoProtocolo saveSituacaoProtocolo(SituacaoProtocolo situacaoProtocolo ,long idFuncionario){
-        SituacaoProtocolo savedSituacaoProtocolo = situacaoProtocolo;
-        if (savedSituacaoProtocolo.getFuncionarios() != null && !situacaoProtocolo.getFuncionarios().isEmpty()) {
-            List<Funcionario>funcionario = new ArrayList<>();
-            funcionario.add(funcionarioService.findById(idFuncionario));
-            savedSituacaoProtocolo.setFuncionarios(funcionario);
-        }
-        return situacaoProtocoloRepository.save(savedSituacaoProtocolo);
+    public SituacaoProtocolo saveSituacaoProtocolo(SituacaoProtocolo situacaoProtocolo){
+        return situacaoProtocoloRepository.save(situacaoProtocolo);
     }
 
-    public SituacaoProtocolo updateSituacaoProtocolo(Long situacaoProtocoloId, SituacaoProtocolo updatedSituacaoProtocolo){
+    public SituacaoProtocolo updateSituacaoProtocolo(Long situacaoProtocoloId,long idFuncionario,SituacaoProtocolo updatedSituacaoProtocolo){
         SituacaoProtocolo existingSituacaoProtocolo = situacaoProtocoloRepository.findById(situacaoProtocoloId).orElseThrow(() -> new EntityNotFoundException("Situacao Protocolo nao encontrada:" + situacaoProtocoloId));
+        Funcionario existingFuncionario = funcionarioService.findById(idFuncionario);
 
+        List<Funcionario> lista = new ArrayList<>();
+        lista.add(existingFuncionario);
+        existingFuncionario.setSituacaoProtocolo(existingSituacaoProtocolo);
         existingSituacaoProtocolo.setResposta(updatedSituacaoProtocolo.getResposta());
         existingSituacaoProtocolo.setStatus(updatedSituacaoProtocolo.getStatus());
-        existingSituacaoProtocolo.setFuncionarios(updatedSituacaoProtocolo.getFuncionarios());
+        existingSituacaoProtocolo.setFuncionarios(lista);
+        funcionarioService.updateFuncionario(existingFuncionario.getCodigoFuncionarioID(), existingFuncionario);
         return situacaoProtocoloRepository.save(existingSituacaoProtocolo);
     }
 

@@ -35,7 +35,6 @@ public class Funcionario {
     @Enumerated
     private TipoCargo cargo;
 
-    @JsonIgnore
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "situacaoProtocolo_id", referencedColumnName = "situacaoProtocolo_id")
