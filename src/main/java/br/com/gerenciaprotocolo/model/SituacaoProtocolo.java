@@ -15,46 +15,49 @@ public class SituacaoProtocolo {
     @Column(name = "situacaoProtocolo_id")
     private Long situacaoProtocoloID;
     
+    
     @Column(name = "resposta", nullable = false, length = 500)
     private String resposta;
-
+    
     @Column(name = "status", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private StatusProtocolo status;
-
-    @JsonIgnore
-    @JsonManagedReference
-    @OneToMany(mappedBy = "situacaoProtocolo")
-    private List<Funcionario> funcionarios;
-
+    
+    
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "protocolo_id", nullable = true)
     private Protocolo protocolo;
-
-
+    
+    @OneToOne
+    @JsonManagedReference
+    @JoinColumn(name = "id_banco_de_dados")
+    private Funcionario funcionario;
+    
     public String getResposta() {
         return resposta;
     }
-
+    
     public void setResposta(String resposta) {
         this.resposta = resposta;
     }
-
+    
     public StatusProtocolo getStatus() {
         return status;
     }
-
+    
     public void setStatus(StatusProtocolo status) {
         this.status = status;
     }
 
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
+    
+    
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public void setFuncionarios(List<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     public Protocolo getProtocolos() {

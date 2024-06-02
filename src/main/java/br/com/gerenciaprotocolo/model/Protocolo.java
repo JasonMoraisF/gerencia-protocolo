@@ -67,6 +67,7 @@ import jakarta.persistence.*;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataUltimaAcao;
     
+    
     @Column(name = "data_Recebimento")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataRecebimento;
@@ -100,7 +101,7 @@ import jakarta.persistence.*;
             break;
             case INFORMACAO:
             protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
-            break;
+                break;
             case SOLICITACAO:
             protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
             break;
