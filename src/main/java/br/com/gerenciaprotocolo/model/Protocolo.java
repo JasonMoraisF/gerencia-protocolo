@@ -32,20 +32,18 @@ import jakarta.persistence.*;
     @JoinColumn(name = "canal_id", nullable = false)
     private Canal canal;
     
-    @JsonManagedReference
-    @OneToOne
-    @JoinColumn(name = "cliente_id", nullable = true)
-    private Cliente cliente;
     
     @Column(name = "departamento", nullable = true)
     private Departamentos departamento;
     
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private SituacaoProtocolo situacaoProtocolo;
     
     @Column(name = "tipo_protocolo", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private TipoProtocolo tipoProtocolo;
     
-    @Column(name = "descricao", nullable = false)
+    @Column(name = "descricao", nullable = false, length = 500)
     private String descricao;
     
     @Column(name = "agilizar", nullable = true)
@@ -69,6 +67,7 @@ import jakarta.persistence.*;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataUltimaAcao;
     
+    
     @Column(name = "data_Recebimento")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataRecebimento;
@@ -83,8 +82,10 @@ import jakarta.persistence.*;
     @Column(name = "procedente")
     private Boolean procedente;
     
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    private SituacaoProtocolo situacaoProtocolo;
+    @JsonManagedReference
+    @OneToOne
+    @JoinColumn(name = "cliente_id", nullable = true)
+    private Cliente cliente;
     
     public interface PublicView {}
     public interface PrivateView {}
@@ -102,8 +103,8 @@ import jakarta.persistence.*;
             protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
                 break;
             case SOLICITACAO:
-                protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
-                break;
+            protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
+            break;
             case CONSULTA:
                 protocolo.setDataPrazo(protocolo.getDataAbertura().plusDays(7)); 
                 break;
