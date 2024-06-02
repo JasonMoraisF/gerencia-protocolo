@@ -62,7 +62,7 @@ _Campo Cliente sendo o campo de criacao de Cliente, nao sendo possivel criar um 
      - "devolvido"
     
    - "funcionario": ID do funcionario criado previamente no Banco de Dados
-  
+  _Sendo possivel por meio da atualizacao da Situacao Protocolo, mudar o funcionario responsavel por meio do ID._
 
 ## Abaixo esta o que e requerido para a criacao das demais colunas.
 Sendo possivel a criacao do Titular apenas por meio de abertura de conta.
